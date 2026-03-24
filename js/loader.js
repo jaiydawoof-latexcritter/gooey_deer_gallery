@@ -8,7 +8,7 @@
  * Load order:
  *   1. config.json          → sets title, fonts, Drive URL, theme vars
  *   2. parts/favicon.txt    → sets favicon
- *   3. parts/*.html          → injected into #app-root in order
+ *   3. parts/*.html         → injected into #app-root in order
  *   4. app.js               → runs after parts are ready (DOMContentLoaded)
  */
 
@@ -94,7 +94,7 @@
   const root = document.getElementById('app-root');
   root.innerHTML = htmlParts.join('\n');
 
-  // ── 4. Apply config values into injected HTML ────────────────────────────
+  // ── 4. Apply config values into injected HTML ─────────────────────────────
 
   // Hero title
   if (cfg.heroTitle) {

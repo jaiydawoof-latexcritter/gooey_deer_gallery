@@ -1,0 +1,16 @@
+<!-- REF SHEETS PAGE -->
+<div class="page" id="page-refs">
+  <div class="refs-hero">
+    <h1>Character <span>Reference Sheets</span></h1>
+    <p>Official character references for Jaiy across all forms and variations. Artists are welcome to use these for commissions.</p>
+  </div>
+  <div class="refs-filters">
+    <span class="filter-label">Rating</span>
+    <button class="filter-btn active" onclick="filterRefsRating('all',this)"        id="r-r-all">All</button>
+    <button class="filter-btn"         onclick="filterRefsRating('SFW',this)"        id="r-r-sfw">SFW Only</button>
+    <button class="filter-btn"         onclick="filterRefsRating('Suggestive',this)" id="r-r-sug">Suggestive</button>
+    <button class="filter-btn"         onclick="filterRefsRating('NSFW',this)"       id="r-r-nsfw">NSFW</button>
+  </div>
+  <div class="refs-grid" id="refs-grid"></div>
+  <div class="empty-state" id="refs-empty"><h3>No reference sheets found</h3><p>Try adjusting your filters.</p></div>
+</div>

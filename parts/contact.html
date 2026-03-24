@@ -1,0 +1,20 @@
+<!-- CONTACT PAGE -->
+<div class="page" id="page-contact">
+  <div class="contact-page">
+    <h1>Get in <span>Touch</span></h1>
+    <p>Questions, artist credit corrections, commission inquiries, or just want to say hi?</p>
+    <div id="contact-form">
+      <div class="form-group"><label>Your Name</label><input type="text" id="cf-name" placeholder="e.g. Fennec Fox"></div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="cf-email" placeholder="you@example.com"></div>
+      <div class="form-group"><label>Reason</label>
+        <select id="cf-reason">
+          <option>General inquiry</option><option>Artist credit correction</option>
+          <option>Content removal request</option><option>Commission question</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Message</label><textarea id="cf-message" placeholder="Your message here..."></textarea></div>
+      <button class="btn-submit" onclick="submitForm()">Send Message</button>
+    </div>
+    <div class="form-success" id="form-success"><h3>Message sent! ✦</h3><p>Thank you for reaching out.</p></div>
+  </div>
+</div>

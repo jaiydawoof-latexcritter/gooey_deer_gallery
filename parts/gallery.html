@@ -1,44 +1,40 @@
 <!-- GALLERY PAGE -->
 <div class="page active" id="page-gallery">
-
-    <!-- HERO BANNER: shuffled SFW images, changes on every reload -->
-    <div class="hero-banner" id="hero-banner">
-          <div class="hero-banner-track" id="hero-banner-track"></div>div>
-          <div class="hero-overlay">
-                  <h1 class="hero-title">Welcome to<br><span>Jaiy's Gallery</span></h1>h1>
-          </div>div>
-    </div>div>
-
+  <div class="hero-banner" id="hero-banner">
+    <div class="hero-banner-track" id="hero-banner-track"></div>
+    <div class="hero-overlay">
+      <h1 class="hero-title">Welcome to<br><span>Jaiy's Gallery</span></h1>
+    </div>
+  </div>
   <div class="filters">
-      <span class="filter-label">Type</span>
-      <button class="filter-btn active" onclick="filterGalleryType('all',this)">All</button>button>
-      <button class="filter-btn" onclick="filterGalleryType('Gooey',this)">Gooey</button>button>
-      <button class="filter-btn" onclick="filterGalleryType('Pooltoy',this)">Pooltoy</button>button>
-      <button class="filter-btn" onclick="filterGalleryType('Normal',this)">Normal</button>button>
-      <button class="filter-btn" onclick="filterGalleryType('Fursuit',this)">Fursuit</button>button>
-      <button class="filter-btn" onclick="filterGalleryType('Latex',this)">Latex</button>button>
-      <button class="filter-btn" onclick="filterGalleryType('Other',this)">Other</button>button>
-      <div class="filter-divider"></div>div>
-      <span class="filter-label">Rating</span>
-      <button class="filter-btn active" onclick="filterGalleryRating('all',this)" id="g-r-all">All</button>button>
-      <button class="filter-btn" onclick="filterGalleryRating('SFW',this)" id="g-r-sfw">SFW Only</button>button>
-      <button class="filter-btn" onclick="filterGalleryRating('NSFW',this)" id="g-r-nsfw">NSFW</button>button>
-  </div>div>
-
+    <span class="filter-label">Type</span>
+    <button class="filter-btn active" onclick="filterGalleryType('all',this)">All</button>
+    <button class="filter-btn" onclick="filterGalleryType('Gooey',this)">Gooey</button>
+    <button class="filter-btn" onclick="filterGalleryType('Pooltoy',this)">Pooltoy</button>
+    <button class="filter-btn" onclick="filterGalleryType('Normal',this)">Normal</button>
+    <button class="filter-btn" onclick="filterGalleryType('Fursuit',this)">Fursuit</button>
+    <button class="filter-btn" onclick="filterGalleryType('Latex',this)">Latex</button>
+    <button class="filter-btn" onclick="filterGalleryType('Other',this)">Other</button>
+    <div class="filter-divider"></div>
+    <span class="filter-label">Rating</span>
+    <button class="filter-btn active" onclick="filterGalleryRating('all',this)" id="g-r-all">All</button>
+    <button class="filter-btn" onclick="filterGalleryRating('SFW',this)" id="g-r-sfw">SFW Only</button>
+    <button class="filter-btn" onclick="filterGalleryRating('NSFW',this)" id="g-r-nsfw">NSFW</button>
+  </div>
   <div class="gallery-layout">
-      <aside class="sidebar">
-            <div class="sidebar-section">
-                    <div class="sidebar-title" onclick="toggleSidebarSection(this)">
-                              Artists <span class="chevron">▾</span>
-                    </div>div>
-                    <div class="sidebar-list" id="artist-list">
-                              <button class="sidebar-btn active" onclick="filterGalleryArtist('all',this)">All Artists</button>button>
-                    </div>div>
-            </div>div>
-      </aside>aside>
-      <div class="gallery-main">
-            <div class="gallery-grid" id="gallery-grid"></div>div>
-            <div class="empty-state" id="gallery-empty"><h3>No results found</h3><p>Try adjusting your filters.</p></div>div>
-      </div>div>
-  </div>div>
-</div>div></p></h3></span>
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title" onclick="toggleSidebarSection(this)">
+          Artists <span class="chevron">▾</span>
+        </div>
+        <div class="sidebar-list" id="artist-list">
+          <button class="sidebar-btn active" onclick="filterGalleryArtist('all',this)">All Artists</button>
+        </div>
+      </div>
+    </aside>
+    <div class="gallery-main">
+      <div class="gallery-grid" id="gallery-grid"></div>
+      <div class="empty-state" id="gallery-empty"><h3>No results found</h3><p>Try adjusting your filters.</p></div>
+    </div>
+  </div>
+</div>

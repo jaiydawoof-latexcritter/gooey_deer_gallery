@@ -225,4 +225,8 @@ function toggleNSFW() {
     if (!nsfwUnlocked) { document.getElementById('age-gate').classList.remove('hidden'); return; }
     nsfwVisible = !nsfwVisible;
     document.getElementById('nsfw-toggle').classList.toggle('on', nsfwVisible);
-   
+  js// ══ BOOTSTRAP ════════════════════════════════════════════════════════════════
+document.addEventListener('parts-loaded', init);
+if (document.getElementById('app-root') && document.getElementById('app-root').innerHTML.trim()) {
+  init();
+}

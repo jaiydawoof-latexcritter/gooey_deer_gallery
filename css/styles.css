@@ -438,10 +438,14 @@
     .nav-link { padding: 7px 9px; font-size: 0.8rem; }
     .hero,.refs-hero { padding: 60px 16px 32px; }
     .filters,.refs-filters { padding: 0 16px 20px; }
-    .gallery-grid { padding: 0 16px 40px 0; columns: 2 150px; }
+    .gallery-layout { display: block !important; padding-right: 0 !important; }
+    .gallery-main { width: 100% !important; min-width: 0 !important; }
+    .gallery-grid { padding: 0 16px 40px 16px !important; columns: 2 140px !important; }
     .refs-grid { padding: 0 16px 40px; grid-template-columns: 1fr; }
     .about-page,.contact-page { padding: 40px 16px; }
     .setup-banner { margin: 0 16px 20px; }
+    .hero-banner { height: 180px; }
+    .hero-banner-img { min-width: 40px; }
   }
 
 /* ═══════════════════════════════════════

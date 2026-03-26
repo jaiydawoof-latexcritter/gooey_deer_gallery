@@ -47,7 +47,7 @@ function buildHeroBanner(items) {
 async function init() {
   const grid = document.getElementById("gallery-grid");
   if (grid) grid.innerHTML = "<div style=\"padding:60px;text-align:center;color:var(--muted)\">Loading gallery...</div>";
-  const results = await Promise.all([fetchFromDrive("gallery"), fetchFromDrive("ref")]);
+  const results = await Promise.all([fetchFromDrive("gallery"), fetchFromDrive("refs")]);
   allGallery = results[0].map(function(i) { return Object.assign({}, i, { rating: normaliseRating(i.rating) }); });
   allRefs    = results[1].map(function(r) { return Object.assign({}, r, { rating: normaliseRating(r.rating) }); });
   buildHeroBanner(allGallery);

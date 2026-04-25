@@ -3,7 +3,7 @@
   "heroTitle": "Welcome to<br><span>Jaiy's Gallery</span>",
   "heroText": "This is a collection of art commissioned by Jaiy from a variety of artists across the furry community in a centralized place that is currently under construction. Please feel free to reach out on the contact form if you have suggestions for improvements.",
   "driveUrl": "https://f69ytbfbq1.execute-api.us-west-1.amazonaws.com/prod/gallery",
-  "apiKey": "GALLERY_API_KEY",
+  "apiKey": "UAtLzFWiFrrix38GHCMHK9YnBbjCLefWHf72h4zoasdaasfd",
   "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap",
   "filterTypes": ["all", "Gooey", "Pooltoy", "Normal", "Fursuit", "Latex", "Other"],
   "filterRatings": ["all", "sfw", "nsfw"],

@@ -6,7 +6,15 @@
       location.replace('https://' + location.host + location.pathname + location.search + location.hash);
     }
   </script>
-
+  
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline';
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src https://fonts.gstatic.com;
+  img-src * data:;
+  connect-src https://f69ytbfbq1.execute-api.us-west-1.amazonaws.com https://gooeydeer.com;
+">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jaiy's Gallery</title>

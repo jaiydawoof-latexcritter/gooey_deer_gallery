@@ -1,37 +1,41 @@
 <!-- GALLERY PAGE -->
 <div class="page active" id="page-gallery">
-  <div class="hero-banner" id="hero-banner">
-    <div class="hero-banner-track" id="hero-banner-track"></div>
-    <div class="hero-overlay">
-      <h1 class="hero-title">Welcome to<br><span>Jaiy's Gallery</span></h1>
-    </div>
+  <div class="hero">
+    <h1>Welcome to<br><span>Jaiy's Gallery</span></h1>
+    <p>This is a collection of art commissioned by Jaiy from a variety of artists across the furry community in a centralized place that is currently under construction. Please feel free to reach out on the contact form if you have suggestions for improvements.</p>
   </div>
+
   <div class="filters">
     <span class="filter-label">Type</span>
-    <button class="filter-btn active" onclick="filterGalleryType('all',this)">All</button>
-    <button class="filter-btn" onclick="filterGalleryType('Gooey',this)">Gooey</button>
-    <button class="filter-btn" onclick="filterGalleryType('Pooltoy',this)">Pooltoy</button>
-    <button class="filter-btn" onclick="filterGalleryType('Normal',this)">Normal</button>
-    <button class="filter-btn" onclick="filterGalleryType('Fursuit',this)">Fursuit</button>
-    <button class="filter-btn" onclick="filterGalleryType('Latex',this)">Latex</button>
-    <button class="filter-btn" onclick="filterGalleryType('Other',this)">Other</button>
+    <button class="filter-btn type-filter-btn active" onclick="filterGalleryType('all',this)">All</button>
+    <button class="filter-btn type-filter-btn" onclick="filterGalleryType('Gooey',this)">Gooey</button>
+    <button class="filter-btn type-filter-btn" onclick="filterGalleryType('Pooltoy',this)">Pooltoy</button>
+    <button class="filter-btn type-filter-btn" onclick="filterGalleryType('Normal',this)">Normal</button>
+    <button class="filter-btn type-filter-btn" onclick="filterGalleryType('Fursuit',this)">Fursuit</button>
+    <button class="filter-btn type-filter-btn" onclick="filterGalleryType('Latex',this)">Latex</button>
+    <button class="filter-btn type-filter-btn" onclick="filterGalleryType('Other',this)">Other</button>
     <div class="filter-divider"></div>
     <span class="filter-label">Rating</span>
-    <button class="filter-btn active" onclick="filterGalleryRating('all',this)" id="g-r-all">All</button>
-    <button class="filter-btn" onclick="filterGalleryRating('SFW',this)" id="g-r-sfw">SFW Only</button>
-    <button class="filter-btn" onclick="filterGalleryRating('NSFW',this)" id="g-r-nsfw">NSFW</button>
+    <button class="filter-btn rating-filter-btn active" onclick="filterGalleryRating('all',this)"        id="g-r-all">All</button>
+    <button class="filter-btn rating-filter-btn"        onclick="filterGalleryRating('SFW',this)"        id="g-r-sfw">SFW Only</button>
+    <button class="filter-btn rating-filter-btn"        onclick="filterGalleryRating('Suggestive',this)" id="g-r-sug">Suggestive</button>
+    <button class="filter-btn rating-filter-btn"        onclick="filterGalleryRating('NSFW',this)"       id="g-r-nsfw">NSFW</button>
   </div>
+
   <div class="gallery-layout">
+    <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="sidebar-section">
         <div class="sidebar-title" onclick="toggleSidebarSection(this)">
-          Artists <span class="chevron">&#9662;</span>
+          Artists <span class="chevron">▾</span>
         </div>
         <div class="sidebar-list" id="artist-list">
           <button class="sidebar-btn active" onclick="filterGalleryArtist('all',this)">All Artists</button>
         </div>
       </div>
     </aside>
+
+    <!-- MAIN GALLERY -->
     <div class="gallery-main">
       <div class="gallery-grid" id="gallery-grid"></div>
       <div class="empty-state" id="gallery-empty"><h3>No results found</h3><p>Try adjusting your filters.</p></div>

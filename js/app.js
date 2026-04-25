@@ -3,9 +3,16 @@ const DRIVE_URL = (window.SITE_CONFIG && window.SITE_CONFIG.driveUrl)
   ? window.SITE_CONFIG.driveUrl
   : 'https://script.google.com/macros/s/AKfycbzchULgfbJ0tAJ_6i3YT2_w7iQqci4_I5tXSa59as89d52HmWZ5_Zg0NztnGLHESDYt/exec';
 
+// ══ API KEY FIX: reads apiKey from config.json and sends it as a header ══
 async function fetchFromDrive(type) {
   try {
-    const res = await fetch(DRIVE_URL + '?type=' + type);
+    const apiKey = window.SITE_CONFIG?.apiKey || '';
+    const res = await fetch(DRIVE_URL + '?type=' + type, {
+      headers: {
+        'x-api-key': apiKey
+      }
+    });
+    if (!res.ok) throw new Error('API responded with ' + res.status);
     const data = await res.json();
     return Array.isArray(data) ? data : [];
   } catch(e) {
@@ -20,8 +27,6 @@ let galleryTypeFilter='all', galleryRatingFilter='all', refsRatingFilter='all', 
 let lightboxIndex=0, visibleItems=[];
 
 // ══ FIX 1: ratingVisible now respects BOTH nsfwUnlocked AND nsfwVisible ══
-// Previously only checked nsfwUnlocked, so toggling NSFW off had no effect
-// on what was rendered.
 function ratingVisible(rating) {
   const isRestricted = rating === 'NSFW' || rating === 'Suggestive';
   if (!isRestricted) return true;
@@ -35,8 +40,6 @@ function badgeClass(r) {
 }
 
 // ══ FIX 2: Update rating filter button visibility based on NSFW lock state ══
-// Suggestive and NSFW filter buttons are hidden when not unlocked so users
-// can't select a filter that will always show zero results.
 function syncRatingButtons() {
   const restrictedGallery = ['g-r-sug', 'g-r-nsfw'];
   const restrictedRefs    = ['r-r-sug', 'r-r-nsfw'];
@@ -46,8 +49,7 @@ function syncRatingButtons() {
     el.style.display = (nsfwUnlocked && nsfwVisible) ? '' : 'none';
   });
 
-  // FIX 3: If a restricted filter was active when NSFW gets toggled off,
-  // reset it to 'all' so display state and filter state stay in sync.
+  // FIX 3: Reset restricted filters if NSFW is toggled off
   if (!(nsfwUnlocked && nsfwVisible)) {
     if (galleryRatingFilter === 'NSFW' || galleryRatingFilter === 'Suggestive') {
       galleryRatingFilter = 'all';
@@ -76,7 +78,6 @@ async function init() {
   allGallery = galleryData.length ? galleryData : [];
   allRefs    = refsData.length   ? refsData    : [];
 
-  // Add semantic class to rating filter buttons for reliable selection
   document.querySelectorAll('#g-r-sug, #g-r-nsfw').forEach(el => el.classList.add('rating-filter-btn'));
   document.querySelectorAll('#r-r-sug, #r-r-nsfw').forEach(el => el.classList.add('rating-filter-btn'));
   document.querySelectorAll('#g-r-all, #g-r-sfw').forEach(el => el.classList.add('rating-filter-btn'));
@@ -94,8 +95,6 @@ function renderGallery() {
   grid.innerHTML = '';
   visibleItems = allGallery.filter(item => {
     const typeOk   = galleryTypeFilter === 'all' || item.type === galleryTypeFilter;
-    // FIX 4: Rating filter now also respects ratingVisible so explicit rating
-    // filter selection can't surface locked content.
     const ratingOk = galleryRatingFilter === 'all' || item.rating === galleryRatingFilter;
     const artistOk = galleryArtistFilter === 'all' || item.artist === galleryArtistFilter;
     return typeOk && ratingOk && artistOk && ratingVisible(item.rating);
@@ -164,7 +163,6 @@ function renderRefs() {
   });
 }
 
-// ══ FIX 5: Artist filter active state managed reliably via data attribute ══
 function filterGalleryArtist(artist, btn) {
   galleryArtistFilter = artist;
   document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
@@ -182,7 +180,6 @@ function populateSidebar() {
 
   list.innerHTML = `<button class="sidebar-btn active" onclick="filterGalleryArtist('all',this)">All Artists (${totalCount})</button>`;
 
-  // Reset artist filter if current selection no longer exists in filtered pool
   if (galleryArtistFilter !== 'all' && !artists.includes(galleryArtistFilter)) {
     galleryArtistFilter = 'all';
   }
@@ -197,7 +194,6 @@ function populateSidebar() {
     list.appendChild(btn);
   });
 
-  // Ensure All Artists is active when filter is 'all'
   if (galleryArtistFilter === 'all') {
     list.querySelector('.sidebar-btn').classList.add('active');
   }
@@ -208,12 +204,8 @@ function toggleSidebarSection(titleEl) {
   titleEl.nextElementSibling.classList.toggle('collapsed');
 }
 
-// ══ FIX 6: Type filter active state uses data-type attribute, not fragile ══
-// textContent matching against a hardcoded list.
 function filterGalleryType(type, btn) {
   galleryTypeFilter = type;
-  // Reset artist filter whenever type changes so stale artist selections
-  // from the previous type pool don't persist.
   galleryArtistFilter = 'all';
   document.querySelectorAll('#page-gallery .type-filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -222,7 +214,6 @@ function filterGalleryType(type, btn) {
 }
 
 function filterGalleryRating(rating, btn) {
-  // FIX 7: Guard against setting a restricted rating when NSFW is locked.
   if ((rating === 'NSFW' || rating === 'Suggestive') && !(nsfwUnlocked && nsfwVisible)) return;
   galleryRatingFilter = rating;
   document.querySelectorAll('#page-gallery .rating-filter-btn').forEach(b => b.classList.remove('active'));
@@ -231,7 +222,6 @@ function filterGalleryRating(rating, btn) {
 }
 
 function filterRefsRating(rating, btn) {
-  // Same guard for refs page
   if ((rating === 'NSFW' || rating === 'Suggestive') && !(nsfwUnlocked && nsfwVisible)) return;
   refsRatingFilter = rating;
   document.querySelectorAll('#page-refs .rating-filter-btn').forEach(b => b.classList.remove('active'));
@@ -262,7 +252,6 @@ function toggleNSFW() {
   nsfwVisible = !nsfwVisible;
   document.getElementById('nsfw-toggle').classList.toggle('on', nsfwVisible);
   document.getElementById('nsfw-label').classList.toggle('on', nsfwVisible);
-  // Sync buttons and reset any active restricted filters before re-render
   syncRatingButtons();
   renderGallery();
   renderRefs();

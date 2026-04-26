@@ -88,6 +88,8 @@ async function init() {
   renderRefs();
   updateStats();
   populateSidebar();
+  // ── LIGHTBOX FIX: called here so the element exists in DOM ──
+  initLightboxListeners();
 }
 
 function renderGallery() {
@@ -292,12 +294,21 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 
-document.getElementById('lightbox').addEventListener('click', e => {
-  if (e.target === document.getElementById('lightbox')) closeLightbox();
-});
+// ── LIGHTBOX FIX: moved into a function called from init() so the
+//    lightbox element exists in the DOM before we try to attach listeners.
+//    Previously this ran at script parse time, before loader.js had
+//    injected the HTML parts, causing "Cannot read properties of null". ──
+function initLightboxListeners() {
+  const lb = document.getElementById('lightbox');
+  if (!lb) return;
+  lb.addEventListener('click', e => {
+    if (e.target === lb) closeLightbox();
+  });
+}
 
 document.addEventListener('keydown', e => {
-  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  const lb = document.getElementById('lightbox');
+  if (!lb || !lb.classList.contains('open')) return;
   if (e.key === 'Escape')      closeLightbox();
   if (e.key === 'ArrowLeft')   navLightbox(-1);
   if (e.key === 'ArrowRight')  navLightbox(1);

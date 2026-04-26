@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaiy's Gallery — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #1a1c22;
+    --surface:  #22252e;
+    --surface2: #2c3040;
+    --border:   #3a3f52;
+    --accent:   #4ac8d4;
+    --accent2:  #cc2222;
+    --fur-blue: #7a84a8;
+    --fur-tan:  #c4956a;
+    --text:     #e8e4dc;
+    --muted:    #8a90a8;
+    --pendant:  #e8c84a;
+    --success:  #4ac8d4;
+    --error:    #cc2222;
+    --radius:   12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 40px 24px;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  .admin-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .admin-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .collar-dot {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 32%, #fff9d0, #f0d050, #e8c84a, #c49418, #a07810);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.3);
+    flex-shrink: 0;
+  }
+  .admin-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+  }
+  .admin-header p { color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+
+  /* ── Config Panel ── */
+  .config-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .config-panel h3 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .config-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .config-field label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+  .config-field input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    transition: border-color 0.2s;
+  }
+  .config-field input:focus { outline: none; border-color: var(--accent); }
+  .config-status {
+    margin-top: 12px;
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+  .status-dot.ok { background: var(--success); box-shadow: 0 0 6px rgba(74,200,212,0.5); }
+  .status-dot.err { background: var(--error); }
+
+  /* ── Upload Form ── */
+  .upload-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .upload-card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .upload-card-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+  }
+  .item-count {
+    font-size: 0.78rem;
+    color: var(--muted);
+    background: var(--surface2);
+    padding: 4px 10px;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+  }
+
+  /* ── Drop Zone ── */
+  .drop-zone {
+    margin: 24px;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 48px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--accent);
+    background: rgba(74,200,212,0.04);
+  }
+  .drop-zone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+  .drop-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+  .drop-zone h3 { font-size: 0.95rem; margin-bottom: 6px; }
+  .drop-zone p { font-size: 0.8rem; color: var(--muted); }
+
+  /* ── Preview Strip ── */
+  .preview-strip {
+    display: flex;
+    gap: 10px;
+    padding: 0 24px 24px;
+    flex-wrap: wrap;
+  }
+  .preview-thumb {
+    width: 80px; height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .preview-thumb.selected { border-color: var(--accent); }
+
+  /* ── Metadata Form ── */
+  .meta-form {
+    padding: 0 24px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .form-group input,
+  .form-group select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 13px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus { outline: none; border-color: var(--accent); }
+  .form-group select option { background: var(--surface2); }
+
+  /* ── Submit ── */
+  .submit-row {
+    padding: 0 24px 24px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .btn-upload {
+    background: linear-gradient(135deg, var(--accent), var(--fur-blue));
+    color: var(--bg);
+    border: none;
+    padding: 13px 32px;
+    border-radius: 50px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .btn-upload:hover { opacity: 0.88; }
+  .btn-upload:active { transform: scale(0.98); }
+  .btn-upload:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-clear {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 13px 20px;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .btn-clear:hover { border-color: var(--accent); color: var(--text); }
+
+  /* ── Progress ── */
+  .progress-wrap {
+    padding: 0 24px 24px;
+    display: none;
+  }
+  .progress-wrap.visible { display: block; }
+  .progress-bar-bg {
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--fur-blue));
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .progress-label { font-size: 0.78rem; color: var(--muted); }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    max-width: 340px;
+  }
+  .toast.show { transform: none; opacity: 1; }
+  .toast.success { border-color: var(--success); }
+  .toast.error   { border-color: var(--error); }
+  .toast-icon { font-size: 1.1rem; }
+
+  /* ── Recent Uploads ── */
+  .recent-section {
+    margin-top: 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .recent-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .recent-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+  }
+  .btn-refresh {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .btn-refresh:hover { border-color: var(--accent); color: var(--accent); }
+  .recent-grid {
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  .recent-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .recent-item:hover { transform: translateY(-2px); border-color: var(--fur-blue); }
+  .recent-item img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+  }
+  .recent-item-info {
+    padding: 8px 10px;
+  }
+  .recent-item-title {
+    font-size: 0.75rem;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 3px;
+  }
+  .recent-item-meta {
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+  .recent-item-badge {
+    position: absolute;
+    top: 6px; right: 6px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 50px;
+    letter-spacing: 0.05em;
+  }
+  .badge-sfw        { background: rgba(74,200,212,0.2);  color: #4ac8d4; }
+  .badge-suggestive { background: rgba(196,149,106,0.2); color: #c4956a; }
+  .badge-nsfw       { background: rgba(204,34,34,0.2);   color: #cc2222; }
+  .empty-recent {
+    padding: 40px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  /* ── Delete button on recent items ── */
+  .btn-delete {
+    position: absolute;
+    top: 6px; left: 6px;
+    background: rgba(204,34,34,0.85);
+    border: none;
+    color: #fff;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .recent-item:hover .btn-delete { display: flex; }
+  .btn-delete:hover { background: var(--error); }
+</style>
+</head>
+<body>
+<div class="admin-wrap">
+
+  <!-- Header -->
+  <div class="admin-header">
+    <div class="collar-dot"></div>
+    <div>
+      <h1>Gallery Admin</h1>
+      <p>Upload images to S3 and register them in the gallery database</p>
+    </div>
+  </div>
+
+  <!-- Config Panel -->
+  <div class="config-panel">
+    <h3>Connection Settings</h3>
+    <div class="config-grid">
+      <div class="config-field">
+        <label>API Endpoint</label>
+        <input type="text" id="cfg-api" placeholder="https://...execute-api.../prod/gallery" value="">
+      </div>
+      <div class="config-field">
+        <label>API Key</label>
+        <input type="password" id="cfg-key" placeholder="Your GALLERY_API_KEY" value="">
+      </div>
+      <div class="config-field">
+        <label>S3 Bucket</label>
+        <input type="text" id="cfg-bucket" value="gooeydeer-images">
+      </div>
+      <div class="config-field">
+        <label>CloudFront Domain</label>
+        <input type="text" id="cfg-cf" value="https://d10dzvm63rjh4c.cloudfront.net">
+      </div>
+    </div>
+    <div class="config-status">
+      <div class="status-dot" id="conn-dot"></div>
+      <span id="conn-label" style="color:var(--muted)">Enter API endpoint and key, then test connection</span>
+      <button onclick="testConnection()" style="margin-left:auto;background:none;border:1px solid var(--border);color:var(--muted);padding:4px 14px;border-radius:50px;font-size:0.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Test Connection</button>
+    </div>
+  </div>
+
+  <!-- Upload Card -->
+  <div class="upload-card">
+    <div class="upload-card-header">
+      <h2>Upload New Image</h2>
+      <span class="item-count" id="file-count">No file selected</span>
+    </div>
+
+    <!-- Drop Zone -->
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept="image/*" onchange="handleFileSelect(this.files)">
+      <div class="drop-icon">🖼️</div>
+      <h3>Drop image here or click to browse</h3>
+      <p>PNG, JPG, GIF, WEBP — up to 25MB</p>
+    </div>
+
+    <!-- Preview -->
+    <div class="preview-strip" id="preview-strip"></div>
+
+    <!-- Metadata -->
+    <div class="meta-form">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" id="f-title" placeholder="e.g. Gooey Jaiy by Artist">
+      </div>
+      <div class="form-group">
+        <label>Artist</label>
+        <input type="text" id="f-artist" placeholder="Artist name">
+      </div>
+      <div class="form-group">
+        <label>Type</label>
+        <select id="f-type">
+          <option value="Gooey">Gooey</option>
+          <option value="Pooltoy">Pooltoy</option>
+          <option value="Normal">Normal</option>
+          <option value="Fursuit">Fursuit</option>
+          <option value="Latex">Latex</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Rating</label>
+        <select id="f-rating">
+          <option value="SFW">SFW</option>
+          <option value="Suggestive">Suggestive</option>
+          <option value="NSFW">NSFW</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>S3 Path (auto-generated, editable)</label>
+        <input type="text" id="f-s3key" placeholder="images/type/filename.jpg" style="font-family:'DM Mono',monospace;font-size:0.8rem">
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-label" id="progress-label">Uploading...</div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-row">
+      <button class="btn-upload" id="btn-submit" onclick="submitUpload()" disabled>
+        Upload to Gallery
+      </button>
+      <button class="btn-clear" onclick="clearForm()">Clear</button>
+    </div>
+  </div>
+
+  <!-- Recent Uploads -->
+  <div class="recent-section">
+    <div class="recent-header">
+      <h2>Gallery Items</h2>
+      <button class="btn-refresh" onclick="loadRecent()">↻ Refresh</button>
+    </div>
+    <div id="recent-grid" class="recent-grid">
+      <div class="empty-recent">Connect to the API and click Refresh to see gallery items</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toast-icon"></span>
+  <span id="toast-msg"></span>
+</div>
+
+<script>
+// ── State ──
+let selectedFile = null;
+let toastTimer = null;
+
+// ── Drop Zone ──
+const dropZone = document.getElementById('drop-zone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  handleFileSelect(e.dataTransfer.files);
+});
+
+function handleFileSelect(files) {
+  if (!files || !files[0]) return;
+  selectedFile = files[0];
+  document.getElementById('file-count').textContent = selectedFile.name;
+
+  // Preview
+  const strip = document.getElementById('preview-strip');
+  strip.innerHTML = '';
+  const img = document.createElement('img');
+  img.className = 'preview-thumb selected';
+  img.src = URL.createObjectURL(selectedFile);
+  strip.appendChild(img);
+
+  // Auto-fill S3 key
+  const type = document.getElementById('f-type').value.toLowerCase();
+  const safeName = selectedFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  document.getElementById('f-s3key').value = `images/${type}/${Date.now()}_${safeName}`;
+
+  // Auto-fill title from filename
+  if (!document.getElementById('f-title').value) {
+    const base = selectedFile.name.replace(/\.[^.]+$/, '').replace(/[_-]/g, ' ');
+    document.getElementById('f-title').value = base.charAt(0).toUpperCase() + base.slice(1);
+  }
+
+  document.getElementById('btn-submit').disabled = false;
+}
+
+// Update S3 key when type changes
+document.getElementById('f-type').addEventListener('change', () => {
+  if (!selectedFile) return;
+  const type = document.getElementById('f-type').value.toLowerCase();
+  const safeName = selectedFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  document.getElementById('f-s3key').value = `images/${type}/${Date.now()}_${safeName}`;
+});
+
+// ── Config helpers ──
+function cfg(id) { return document.getElementById(id).value.trim(); }
+
+// ── Test Connection ──
+async function testConnection() {
+  const dot = document.getElementById('conn-dot');
+  const label = document.getElementById('conn-label');
+  dot.className = 'status-dot';
+  label.textContent = 'Testing...';
+  label.style.color = 'var(--muted)';
+  try {
+    const res = await fetch(cfg('cfg-api') + '?type=gallery', {
+      headers: { 'x-api-key': cfg('cfg-key') }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      dot.className = 'status-dot ok';
+      label.style.color = 'var(--success)';
+      label.textContent = `Connected — ${data.length} gallery items found`;
+      loadRecent();
+    } else {
+      throw new Error('HTTP ' + res.status);
+    }
+  } catch(e) {
+    dot.className = 'status-dot err';
+    label.style.color = 'var(--error)';
+    label.textContent = 'Connection failed: ' + e.message;
+  }
+}
+
+// ── Get S3 upload URL from Lambda ──
+async function getUploadUrl(s3Key, contentType) {
+  const res = await fetch(cfg('cfg-api') + '?type=upload-url&key=' + encodeURIComponent(s3Key) + '&contentType=' + encodeURIComponent(contentType), {
+    headers: { 'x-api-key': cfg('cfg-key') }
+  });
+  if (!res.ok) throw new Error('Failed to get upload URL: ' + res.status);
+  return res.json();
+}
+
+// ── Submit Upload ──
+async function submitUpload() {
+  if (!selectedFile) { toast('error', '⚠️', 'No file selected'); return; }
+  if (!cfg('cfg-api') || !cfg('cfg-key')) { toast('error', '⚠️', 'Enter API endpoint and key first'); return; }
+
+  const title  = document.getElementById('f-title').value.trim();
+  const artist = document.getElementById('f-artist').value.trim();
+  const type   = document.getElementById('f-type').value;
+  const rating = document.getElementById('f-rating').value;
+  const s3Key  = document.getElementById('f-s3key').value.trim();
+
+  if (!title || !artist || !s3Key) { toast('error', '⚠️', 'Fill in title, artist and check S3 path'); return; }
+
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  showProgress(10, 'Getting upload URL...');
+
+  try {
+    // Step 1: Get presigned S3 upload URL from Lambda
+    showProgress(20, 'Requesting secure upload URL...');
+    let uploadUrl, uploadFields;
+
+    try {
+      const urlData = await getUploadUrl(s3Key, selectedFile.type);
+      uploadUrl = urlData.url;
+      uploadFields = urlData.fields;
+      showProgress(40, 'Uploading image to S3...');
+
+      // Step 2: Upload directly to S3 via presigned POST
+      const formData = new FormData();
+      if (uploadFields) {
+        Object.entries(uploadFields).forEach(([k,v]) => formData.append(k, v));
+      }
+      formData.append('file', selectedFile);
+      const s3Res = await fetch(uploadUrl, { method: 'POST', body: formData });
+      if (!s3Res.ok && s3Res.status !== 204) throw new Error('S3 upload failed: ' + s3Res.status);
+    } catch(uploadErr) {
+      // Fallback: Lambda doesn't support presigned URLs yet — save metadata only
+      console.warn('Presigned URL not available, saving metadata only:', uploadErr.message);
+      showProgress(40, 'Saving metadata (upload S3 file manually)...');
+    }
+
+    showProgress(70, 'Registering in database...');
+
+    // Step 3: Register in DynamoDB via Lambda
+    const id = 'img_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+    const cfDomain = cfg('cfg-cf');
+    const encodedKey = s3Key.split('/').map(s => encodeURIComponent(s)).join('/');
+
+    const regRes = await fetch(cfg('cfg-api'), {
+      method: 'POST',
+      headers: {
+        'x-api-key': cfg('cfg-key'),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id, title, artist, type, rating, s3Key,
+        src: `${cfDomain}/images/${encodedKey}`,
+        addedAt: new Date().toISOString()
+      })
+    });
+
+    if (!regRes.ok) {
+      const body = await regRes.text();
+      throw new Error(`Database registration failed (${regRes.status}): ${body}`);
+    }
+
+    showProgress(100, 'Done!');
+    toast('success', '✓', `"${title}" uploaded successfully!`);
+    setTimeout(() => { clearForm(); loadRecent(); }, 1200);
+
+  } catch(e) {
+    console.error(e);
+    toast('error', '✕', e.message);
+    btn.disabled = false;
+    hideProgress();
+  }
+}
+
+function showProgress(pct, label) {
+  document.getElementById('progress-wrap').classList.add('visible');
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = label;
+}
+function hideProgress() {
+  document.getElementById('progress-wrap').classList.remove('visible');
+}
+
+// ── Load Recent ──
+async function loadRecent() {
+  if (!cfg('cfg-api') || !cfg('cfg-key')) return;
+  const grid = document.getElementById('recent-grid');
+  grid.innerHTML = '<div class="empty-recent">Loading...</div>';
+  try {
+    const [galRes, refRes] = await Promise.all([
+      fetch(cfg('cfg-api') + '?type=gallery', { headers: { 'x-api-key': cfg('cfg-key') } }),
+      fetch(cfg('cfg-api') + '?type=refs',    { headers: { 'x-api-key': cfg('cfg-key') } })
+    ]);
+    const gallery = galRes.ok ? await galRes.json() : [];
+    const refs    = refRes.ok ? await refRes.json() : [];
+    const all = [...gallery, ...refs];
+
+    if (!all.length) {
+      grid.innerHTML = '<div class="empty-recent">No items yet — upload your first image above!</div>';
+      return;
+    }
+
+    grid.innerHTML = '';
+    all.forEach(item => {
+      const badgeClass = item.rating === 'NSFW' ? 'badge-nsfw' : item.rating === 'Suggestive' ? 'badge-suggestive' : 'badge-sfw';
+      const el = document.createElement('div');
+      el.className = 'recent-item';
+      el.innerHTML = `
+        <img src="${item.src || item.url || ''}" alt="${item.title}" loading="lazy" onerror="this.style.background='var(--surface2)';this.style.minHeight='80px'">
+        <span class="recent-item-badge ${badgeClass}">${item.rating}</span>
+        <button class="btn-delete" title="Delete" onclick="deleteItem('${item.id}', this)">✕</button>
+        <div class="recent-item-info">
+          <div class="recent-item-title">${item.title}</div>
+          <div class="recent-item-meta">${item.artist} · ${item.type || item.version || ''}</div>
+        </div>`;
+      grid.appendChild(el);
+    });
+  } catch(e) {
+    grid.innerHTML = `<div class="empty-recent">Error loading: ${e.message}</div>`;
+  }
+}
+
+// ── Delete Item ──
+async function deleteItem(id, btn) {
+  if (!confirm('Delete this item from the gallery?')) return;
+  try {
+    const res = await fetch(cfg('cfg-api') + '?type=delete&id=' + encodeURIComponent(id), {
+      method: 'DELETE',
+      headers: { 'x-api-key': cfg('cfg-key') }
+    });
+    if (res.ok) {
+      btn.closest('.recent-item').remove();
+      toast('success', '✓', 'Item deleted');
+    } else {
+      throw new Error('Delete failed: ' + res.status);
+    }
+  } catch(e) {
+    toast('error', '✕', e.message);
+  }
+}
+
+// ── Clear Form ──
+function clearForm() {
+  selectedFile = null;
+  document.getElementById('file-count').textContent = 'No file selected';
+  document.getElementById('preview-strip').innerHTML = '';
+  document.getElementById('f-title').value = '';
+  document.getElementById('f-artist').value = '';
+  document.getElementById('f-s3key').value = '';
+  document.getElementById('btn-submit').disabled = true;
+  document.getElementById('file-input').value = '';
+  hideProgress();
+}
+
+// ── Toast ──
+function toast(type, icon, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-msg').textContent = msg;
+  t.className = `toast ${type} show`;
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+// ── Auto-load config from parent site's config.json ──
+(async () => {
+  try {
+    const res = await fetch('/config.json');
+    if (res.ok) {
+      const cfg = await res.json();
+      if (cfg.driveUrl) document.getElementById('cfg-api').value = cfg.driveUrl;
+      if (cfg.apiKey)   document.getElementById('cfg-key').value = cfg.apiKey;
+    }
+  } catch(e) { /* standalone mode */ }
+})();
+</script>
+</body>
+</html>

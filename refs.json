@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ref_ifus_001",
+    "src": "images/refs/nsfw/Ifus_references/Jaiy Ref Sheet Deer Parts - Ifus.png",
+    "title": "Jaiy Deer Anatomy Reference",
+    "artist": "Ifus",
+    "version": "v1",
+    "rating": "NSFW"
+  },
+  {
+    "id": "ref_ifus_002",
+    "src": "images/refs/nsfw/Ifus_references/Jaiy Ref Sheet Latex- Ifus.png",
+    "title": "Jaiy Deer Latex Reference",
+    "artist": "Ifus",
+    "version": "v1",
+    "rating": "NSFW"
+  },
+  {
+    "id": "ref_ifus_003",
+    "src": "images/refs/nsfw/Ifus_references/Jaiy Ref Sheet NSFW- Ifus.png",
+    "title": "Jaiy Deer NSFW Reference",
+    "artist": "Ifus",
+    "version": "v1",
+    "rating": "NSFW"
+  }
+]

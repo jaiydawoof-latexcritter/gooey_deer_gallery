@@ -1,10 +1,27 @@
 [
   {
-    "id": "img_example_001",
-    "src": "images/gallery/sfw/gooey/ArtistName_example.jpg",
-    "title": "Example Piece — Replace Me",
-    "artist": "ArtistName",
-    "type": "Gooey",
-    "rating": "SFW"
+    "id": "Ifus Deer Parts Reference",
+    "src": "images/refs/nsfw/Ifus_references/Jaiy Ref Sheet Deer Parts - Ifus.png",
+    "title": "Jaiy Deer Anatomy Reference",
+    "artist": "Ifus",
+    "type": "Reference",
+    "rating": "NSFW"
+  },
+    {
+    "id": "Ifus Latex Reference",
+    "src": "images/refs/nsfw/Ifus_references/Jaiy Ref Sheet Latex- Ifus.png",
+    "title": "Jaiy Deer Latex Reference",
+    "artist": "Ifus",
+    "type": "Reference",
+    "rating": "NSFW"
+  }
+    },
+    {
+    "id": "Ifus NSFW Reference",
+    "src": "images/refs/nsfw/Ifus_references/Jaiy Ref Sheet NSFW- Ifus.png",
+    "title": "Jaiy Deer NSFW Reference",
+    "artist": "Ifus",
+    "type": "Reference",
+    "rating": "NSFW"
   }
 ]

@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "img_example_001",
+    "src": "images/gallery/sfw/gooey/ArtistName_example.jpg",
+    "title": "Example Piece — Replace Me",
+    "artist": "ArtistName",
+    "type": "Gooey",
+    "rating": "SFW"
+  }
+]

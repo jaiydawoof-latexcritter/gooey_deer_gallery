@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#1a1c22;--surface:#22252e;--surface2:#2c3040;--border:#3a3f52;--accent:#4ac8d4;--fur-blue:#7a84a8;--fur-tan:#c4956a;--text:#e8e4dc;--muted:#8a90a8;--error:#cc2222;--radius:12px;}
+:root{--bg:#1a1c22;--surface:#22252e;--surface2:#2c3040;--border:#3a3f52;--accent:#4ac8d4;--fur-blue:#7a84a8;--text:#e8e4dc;--muted:#8a90a8;--red:#cc2222;--radius:12px;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
 .collar-band{width:100%;height:28px;background:linear-gradient(180deg,#a81818 0%,#cc2222 25%,#e03030 50%,#cc2222 75%,#a81818 100%);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,0.12),0 2px 8px rgba(0,0,0,0.5);}
@@ -21,263 +21,220 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,0.96);backdrop-fi
 .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent);}
 .nav-right{display:flex;align-items:center;gap:12px;}
 .nav-count{font-size:0.78rem;color:var(--muted);background:var(--surface2);padding:4px 12px;border-radius:50px;border:1px solid var(--border);}
-/* ── NSFW Toggle ── */
-.nsfw-toggle-wrap{display:flex;align-items:center;gap:8px;}
-.nsfw-label{font-size:0.75rem;font-weight:600;letter-spacing:0.05em;color:var(--muted);transition:color 0.2s;}
-.nsfw-label.active{color:var(--error);}
-.toggle-track{width:38px;height:22px;border-radius:11px;background:var(--surface2);border:1px solid var(--border);cursor:pointer;position:relative;transition:all 0.25s;}
-.toggle-track.on{background:var(--error);border-color:var(--error);}
-.toggle-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform 0.25s;box-shadow:0 1px 4px rgba(0,0,0,0.3);}
-.toggle-track.on .toggle-thumb{transform:translateX(16px);}
-/* ── Age gate ── */
-#age-gate{position:fixed;inset:0;background:rgba(14,16,20,0.97);backdrop-filter:blur(12px);z-index:9999;display:flex;align-items:center;justify-content:center;}
+.nsfw-wrap{display:flex;align-items:center;gap:7px;}
+.nsfw-lbl{font-size:0.72rem;font-weight:700;letter-spacing:0.06em;color:var(--muted);transition:color .2s;}
+.nsfw-lbl.on{color:var(--red);}
+.tog{width:38px;height:22px;border-radius:11px;background:var(--surface2);border:1px solid var(--border);cursor:pointer;position:relative;transition:all .25s;}
+.tog.on{background:var(--red);border-color:var(--red);}
+.tog-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.3);}
+.tog.on .tog-thumb{transform:translateX(16px);}
+#age-gate{position:fixed;inset:0;background:rgba(14,16,20,.97);backdrop-filter:blur(12px);z-index:9999;display:flex;align-items:center;justify-content:center;}
 #age-gate.hidden{display:none;}
 .age-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:44px;width:380px;text-align:center;}
-.age-pendant{width:32px;height:32px;border-radius:50%;margin:0 auto 20px;background:radial-gradient(circle at 35% 32%,#fff9d0,#f0d050,#e8c84a,#c49418,#a07810);box-shadow:0 2px 10px rgba(0,0,0,.5);}
-.age-box h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--accent);margin-bottom:8px;}
-.age-box p{color:var(--muted);font-size:0.88rem;line-height:1.6;margin-bottom:28px;}
-.age-btn{display:block;width:100%;padding:13px;border-radius:50px;font-size:0.92rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;transition:opacity 0.2s;margin-bottom:10px;}
-.age-btn-yes{background:linear-gradient(135deg,var(--error),#a81818);color:#fff;}
-.age-btn-yes:hover{opacity:0.88;}
-.age-btn-no{background:none;border:1px solid var(--border)!important;color:var(--muted);border:none;}
-.age-btn-no:hover{border-color:var(--accent)!important;color:var(--text);}
-/* ── NSFW blur overlay ── */
-.nsfw-item{position:relative;}
+.age-pend{width:32px;height:32px;border-radius:50%;margin:0 auto 18px;background:radial-gradient(circle at 35% 32%,#fff9d0,#f0d050,#e8c84a,#c49418,#a07810);box-shadow:0 2px 10px rgba(0,0,0,.5);}
+.age-box h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--accent);margin-bottom:8px;}
+.age-box p{color:var(--muted);font-size:0.86rem;line-height:1.6;margin-bottom:26px;}
+.age-btn{display:block;width:100%;padding:12px;border-radius:50px;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;margin-bottom:10px;transition:opacity .2s;}
+.age-yes{background:linear-gradient(135deg,var(--red),#a81818);color:#fff;}.age-yes:hover{opacity:.88;}
+.age-no{background:none;border:1px solid var(--border)!important;color:var(--muted);}.age-no:hover{color:var(--text);}
 .nsfw-blur img{filter:blur(18px);transform:scale(1.05);}
-.nsfw-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;background:rgba(14,16,20,0.3);}
-.nsfw-badge{background:var(--error);color:#fff;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;padding:3px 10px;border-radius:50px;}
-.nsfw-overlay p{font-size:0.72rem;color:rgba(255,255,255,0.7);}
-/* ── Rating filter bar ── */
-.rating-bar{display:flex;align-items:center;gap:6px;padding:0 32px 16px;}
-.rating-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-right:4px;}
-.rating-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:4px 14px;border-radius:50px;font-size:0.78rem;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
-.rating-btn:hover{border-color:var(--accent);color:var(--text);}
-.rating-btn.active{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600;}
-.rating-btn.nsfw-btn.active{background:var(--error);border-color:var(--error);}
-/* ── Rest of layout ── */
+.nsfw-ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;}
+.nsfw-badge{background:var(--red);color:#fff;font-size:0.63rem;font-weight:700;letter-spacing:.1em;padding:3px 10px;border-radius:50px;}
+.nsfw-ov p{font-size:0.7rem;color:rgba(255,255,255,.75);}
+.rbar{padding:0 32px 18px;display:flex;align-items:center;gap:8px;}
+.rlbl{font-size:0.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-right:4px;}
+.rbtn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:5px 16px;border-radius:50px;font-size:0.78rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.rbtn:hover{border-color:var(--accent);color:var(--text);}
+.rbtn.active{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600;}
+.rbtn.nsfw-rbtn.active{background:var(--red);border-color:var(--red);}
 .hero{padding:60px 32px 40px;text-align:center;}
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin-bottom:12px;}
 .hero h1 span{color:var(--accent);}
 .hero p{color:var(--muted);max-width:500px;margin:0 auto;line-height:1.7;font-size:0.95rem;}
 .filters{padding:0 32px 24px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
-.filter-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-right:4px;}
-.filter-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:6px 16px;border-radius:50px;font-size:0.82rem;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.filter-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-right:4px;}
+.filter-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:6px 16px;border-radius:50px;font-size:0.82rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
 .filter-btn:hover{border-color:var(--accent);color:var(--text);}
 .filter-btn.active{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600;}
 .gallery-layout{display:flex;align-items:flex-start;padding:0 32px 60px;gap:24px;}
 .sidebar{width:180px;flex-shrink:0;position:sticky;top:80px;max-height:calc(100vh - 100px);overflow-y:auto;}
 .sidebar::-webkit-scrollbar{width:3px;}.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
-.sidebar-title{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:8px;}
-.sidebar-btn{display:block;width:100%;background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.8rem;padding:5px 8px;border-radius:6px;cursor:pointer;text-align:left;transition:all 0.2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sidebar-title{font-size:0.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;}
+.sidebar-btn{display:block;width:100%;background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.8rem;padding:5px 8px;border-radius:6px;cursor:pointer;text-align:left;transition:all .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .sidebar-btn:hover{background:var(--surface);color:var(--text);}
 .sidebar-btn.active{background:var(--surface2);color:var(--accent);font-weight:500;}
 .gallery-main{flex:1;min-width:0;}
 .gallery-grid{columns:4 220px;gap:12px;}
-.gallery-item{break-inside:avoid;margin-bottom:12px;border-radius:var(--radius);overflow:hidden;cursor:pointer;background:var(--surface);border:1px solid var(--border);transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;animation:fadeIn 0.3s ease both;}
-.gallery-item:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(0,0,0,0.4);border-color:var(--fur-blue);}
-.gallery-item img{width:100%;display:block;transition:transform 0.3s;}
+.gallery-item{break-inside:avoid;margin-bottom:12px;border-radius:var(--radius);overflow:hidden;cursor:pointer;background:var(--surface);border:1px solid var(--border);transition:transform .2s,box-shadow .2s,border-color .2s;animation:fadeIn .3s ease both;position:relative;}
+.gallery-item:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(0,0,0,.4);border-color:var(--fur-blue);}
+.gallery-item img{width:100%;display:block;transition:transform .3s;}
 .gallery-item:hover img{transform:scale(1.03);}
 .item-info{padding:9px 11px;display:flex;justify-content:space-between;align-items:center;}
 .item-artist{font-size:0.74rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%;}
-.item-type{font-size:0.65rem;color:var(--fur-blue);background:rgba(122,132,168,0.15);padding:2px 7px;border-radius:50px;}
+.item-type{font-size:0.65rem;color:var(--fur-blue);background:rgba(122,132,168,.15);padding:2px 7px;border-radius:50px;}
 .state-msg{text-align:center;padding:80px 32px;color:var(--muted);}
 .state-msg h3{font-size:1.1rem;margin-bottom:8px;color:var(--text);}
-#lightbox{position:fixed;inset:0;z-index:1000;background:rgba(14,16,20,0.97);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px;}
+#lightbox{position:fixed;inset:0;z-index:1000;background:rgba(14,16,20,.97);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px;}
 #lightbox.open{display:flex;}
 .lb-inner{max-width:900px;width:100%;display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;}
 .lb-img-wrap{width:100%;border-radius:14px;overflow:hidden;border:1px solid var(--border);max-height:72vh;display:flex;align-items:center;justify-content:center;background:var(--surface);}
 .lb-img-wrap img{max-width:100%;max-height:72vh;object-fit:contain;display:block;}
 .lb-meta{text-align:center;}.lb-meta h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:3px;}.lb-meta p{color:var(--muted);font-size:0.82rem;}
-.lb-close{position:absolute;top:-46px;right:0;background:var(--surface);border:1px solid var(--border);color:var(--text);width:34px;height:34px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.lb-close{position:absolute;top:-46px;right:0;background:var(--surface);border:1px solid var(--border);color:var(--text);width:34px;height:34px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .lb-close:hover{border-color:var(--accent);color:var(--accent);}
 .lb-nav{display:flex;gap:10px;}
-.lb-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:7px 18px;border-radius:50px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.82rem;transition:all 0.2s;}
+.lb-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:7px 18px;border-radius:50px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.82rem;transition:all .2s;}
 .lb-btn:hover{border-color:var(--accent);color:var(--accent);}
-.lb-rating-badge{font-size:0.65rem;font-weight:700;letter-spacing:0.08em;padding:2px 8px;border-radius:50px;margin-left:8px;}
-.lb-rating-sfw{background:rgba(74,200,212,0.15);color:var(--accent);}
-.lb-rating-nsfw{background:rgba(204,34,34,0.15);color:var(--error);}
+.lb-rbadge{font-size:0.63rem;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:50px;margin-left:8px;vertical-align:middle;}
+.lb-sfw{background:rgba(74,200,212,.15);color:var(--accent);}
+.lb-nsfw{background:rgba(204,34,34,.15);color:var(--red);}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
-@media(max-width:768px){nav,.hero,.filters,.rating-bar{padding-left:16px;padding-right:16px;}.gallery-layout{padding:0 16px 40px;flex-direction:column;}.sidebar{display:none;}.gallery-grid{columns:2 150px;}}
+@media(max-width:768px){nav,.hero,.filters,.rbar{padding-left:16px;padding-right:16px;}.gallery-layout{padding:0 16px 40px;flex-direction:column;}.sidebar{display:none;}.gallery-grid{columns:2 150px;}}
 </style>
 </head>
 <body>
 
-<!-- Age Gate -->
-<div id="age-gate">
-  <div class="age-box">
-    <div class="age-pendant"></div>
-    <h2>NSFW Content</h2>
-    <p>This gallery contains adult content.<br>You must be 18 or older to view NSFW pieces.</p>
-    <button class="age-btn age-btn-yes" onclick="unlockNSFW()">I am 18+ — Show NSFW</button>
-    <button class="age-btn age-btn-no" onclick="dismissGate()">No thanks — SFW only</button>
-  </div>
+<div id="age-gate" class="hidden">
+<div class="age-box">
+<div class="age-pend"></div>
+<h2>NSFW Content</h2>
+<p>This gallery contains adult content.<br>You must be 18 or older to view NSFW pieces.</p>
+<button class="age-btn age-yes" onclick="unlockNSFW()">I am 18+ — Show NSFW</button>
+<button class="age-btn age-no" onclick="dismissGate()">No thanks — SFW only</button>
+</div>
 </div>
 
 <div class="collar-band"><div class="pendant-wrap"><div class="pendant-loop"></div><div class="pendant"></div></div></div>
 
 <nav>
-  <div class="nav-logo">Jaiy's Gallery</div>
-  <div class="nav-right">
-    <span class="nav-count" id="nav-count">Loading…</span>
-    <div class="nsfw-toggle-wrap" title="Toggle NSFW content">
-      <span class="nsfw-label" id="nsfw-label">NSFW</span>
-      <div class="toggle-track" id="nsfw-toggle" onclick="toggleNSFW()">
-        <div class="toggle-thumb"></div>
-      </div>
-    </div>
-  </div>
+<div class="nav-logo">Jaiy's Gallery</div>
+<div class="nav-right">
+<span class="nav-count" id="nav-count">Loading...</span>
+<div class="nsfw-wrap" title="Toggle NSFW content">
+<span class="nsfw-lbl" id="nsfw-lbl">NSFW</span>
+<div class="tog" id="nsfw-tog" onclick="toggleNSFW()"><div class="tog-thumb"></div></div>
+</div>
+</div>
 </nav>
 
 <div class="hero">
-  <h1>Welcome to<br><span>Jaiy's Gallery</span></h1>
-  <p>A collection of commissioned furry art from artists across the community.</p>
+<h1>Welcome to<br><span>Jaiy's Gallery</span></h1>
+<p>A collection of commissioned furry art from artists across the community.</p>
 </div>
 
 <div class="filters">
-  <span class="filter-label">Type</span>
-  <button class="filter-btn type-btn active" data-type="all">All</button>
-  <button class="filter-btn type-btn" data-type="Gooey">Gooey</button>
-  <button class="filter-btn type-btn" data-type="Pooltoy">Pooltoy</button>
-  <button class="filter-btn type-btn" data-type="Normal">Normal</button>
-  <button class="filter-btn type-btn" data-type="Fursuit">Fursuit</button>
-  <button class="filter-btn type-btn" data-type="Latex">Latex</button>
-  <button class="filter-btn type-btn" data-type="Other">Other</button>
+<span class="filter-label">Type</span>
+<button class="filter-btn type-btn active" data-type="all">All</button>
+<button class="filter-btn type-btn" data-type="Gooey">Gooey</button>
+<button class="filter-btn type-btn" data-type="Pooltoy">Pooltoy</button>
+<button class="filter-btn type-btn" data-type="Normal">Normal</button>
+<button class="filter-btn type-btn" data-type="Fursuit">Fursuit</button>
+<button class="filter-btn type-btn" data-type="Latex">Latex</button>
+<button class="filter-btn type-btn" data-type="Other">Other</button>
 </div>
 
-<div class="rating-bar">
-  <span class="rating-label">Rating</span>
-  <button class="rating-btn active" data-rating="sfw" onclick="setRating('sfw',this)">SFW</button>
-  <button class="rating-btn nsfw-btn" data-rating="nsfw" id="nsfw-filter-btn" onclick="setRating('nsfw',this)" disabled>NSFW</button>
-  <button class="rating-btn" data-rating="all" onclick="setRating('all',this)" id="all-filter-btn" style="display:none">All</button>
+<div class="rbar">
+<span class="rlbl">Rating</span>
+<button class="rbtn active" data-rating="sfw" onclick="setRating('sfw',this)">SFW</button>
+<button class="rbtn nsfw-rbtn" data-rating="nsfw" id="nsfw-rbtn" onclick="setRating('nsfw',this)" style="opacity:0.4;cursor:not-allowed">NSFW</button>
+<button class="rbtn" data-rating="all" id="all-rbtn" onclick="setRating('all',this)" style="display:none">All</button>
 </div>
 
 <div class="gallery-layout">
-  <aside class="sidebar"><div class="sidebar-title">Artists</div><div id="artist-list"></div></aside>
-  <div class="gallery-main"><div class="gallery-grid" id="gallery-grid"><div class="state-msg"><h3>Loading…</h3></div></div></div>
+<aside class="sidebar"><div class="sidebar-title">Artists</div><div id="artist-list"></div></aside>
+<div class="gallery-main"><div class="gallery-grid" id="gallery-grid"><div class="state-msg"><h3>Loading...</h3></div></div></div>
 </div>
 
 <div id="lightbox"><div class="lb-inner">
-  <button class="lb-close" id="lb-close">✕</button>
-  <div class="lb-img-wrap"><img id="lb-img" src="" alt=""></div>
-  <div class="lb-meta"><h3 id="lb-title"></h3><p id="lb-sub"></p></div>
-  <div class="lb-nav"><button class="lb-btn" id="lb-prev">← Prev</button><button class="lb-btn" id="lb-next">Next →</button></div>
+<button class="lb-close" id="lb-close">x</button>
+<div class="lb-img-wrap"><img id="lb-img" src="" alt=""></div>
+<div class="lb-meta"><h3 id="lb-title"></h3><p id="lb-sub"></p></div>
+<div class="lb-nav"><button class="lb-btn" id="lb-prev">Prev</button><button class="lb-btn" id="lb-next">Next</button></div>
 </div></div>
 
 <script>
-// ── State — defaults to SFW ──
-let allItems=[], visible=[], lbIdx=0;
-let typeFilter='all', ratingFilter='sfw', artistFilter='all';
-let nsfwUnlocked = false;
+let allItems=[],visible=[],lbIdx=0,typeFilter='all',ratingFilter='sfw',artistFilter='all',nsfwUnlocked=false;
 
-// ── Init ──
 async function init(){
-  try{
-    const r = await fetch('gallery.json?v='+Date.now());
-    allItems = await r.json();
-  } catch(e){
-    document.getElementById('gallery-grid').innerHTML='<div class="state-msg"><h3>gallery.json not found</h3></div>';
-    return;
-  }
-  buildSidebar();
-  render();
-  // Show age gate only if site has NSFW content
-  const hasNSFW = allItems.some(i => i.rating === 'NSFW');
-  if (hasNSFW) document.getElementById('age-gate').classList.remove('hidden');
-  else document.getElementById('age-gate').classList.add('hidden');
+  try{const r=await fetch('gallery.json?v='+Date.now());allItems=await r.json();}
+  catch(e){document.getElementById('gallery-grid').innerHTML='<div class="state-msg"><h3>Could not load gallery.json</h3></div>';return;}
+  buildSidebar();render();
 }
 
-// ── Render ──
 function render(){
-  visible = allItems.filter(i => {
-    const typeOk   = typeFilter === 'all' || i.type === typeFilter;
-    const artistOk = artistFilter === 'all' || i.artist === artistFilter;
-    const ratingOk = ratingFilter === 'all'
-      ? true
-      : ratingFilter === 'nsfw'
-        ? i.rating === 'NSFW'
-        : i.rating === 'SFW';
-    return typeOk && artistOk && ratingOk;
+  visible=allItems.filter(i=>{
+    const tOk=typeFilter==='all'||i.type===typeFilter;
+    const aOk=artistFilter==='all'||i.artist===artistFilter;
+    const rOk=ratingFilter==='all'?true:ratingFilter==='nsfw'?i.rating==='NSFW':i.rating==='SFW';
+    return tOk&&aOk&&rOk;
   });
-
-  document.getElementById('nav-count').textContent = visible.length + ' pieces';
-  const grid = document.getElementById('gallery-grid');
-
-  if(!visible.length){
-    grid.innerHTML='<div class="state-msg"><h3>No results</h3><p>Try a different filter.</p></div>';
-    return;
-  }
-
+  document.getElementById('nav-count').textContent=visible.length+' pieces';
+  const grid=document.getElementById('gallery-grid');
+  if(!visible.length){grid.innerHTML='<div class="state-msg"><h3>No results</h3><p>Try a different filter.</p></div>';return;}
   grid.innerHTML='';
   visible.forEach((item,idx)=>{
-    const isNSFW = item.rating === 'NSFW';
-    const blurred = isNSFW && !nsfwUnlocked;
-    const el = document.createElement('div');
-    el.className = 'gallery-item' + (isNSFW ? ' nsfw-item' : '');
-    el.style.animationDelay = Math.min(idx*0.03,0.6)+'s';
-    el.innerHTML =
-      '<div class="' + (blurred ? 'nsfw-blur' : '') + '">' +
+    const isNSFW=item.rating==='NSFW';
+    const blurred=isNSFW&&!nsfwUnlocked;
+    const el=document.createElement('div');
+    el.className='gallery-item';
+    el.style.animationDelay=Math.min(idx*0.03,0.6)+'s';
+    el.innerHTML=
+      '<div class="'+(blurred?'nsfw-blur':'')+'">' +
         '<img src="'+item.src+'" alt="'+item.title+'" loading="lazy">' +
-      '</div>' +
-      (blurred ? '<div class="nsfw-overlay" onclick="promptNSFW()"><span class="nsfw-badge">NSFW</span><p>Click to unlock</p></div>' : '') +
-      '<div class="item-info">' +
-        '<span class="item-artist">by '+item.artist+'</span>' +
-        '<span class="item-type">'+item.type+'</span>' +
-      '</div>';
-    if (!blurred) el.addEventListener('click', ()=>openLightbox(idx));
+      '</div>'+
+      (blurred?'<div class="nsfw-ov" onclick="showGate()"><span class="nsfw-badge">NSFW</span><p>Unlock to view</p></div>':'')+
+      '<div class="item-info"><span class="item-artist">by '+item.artist+'</span><span class="item-type">'+item.type+'</span></div>';
+    if(!blurred)el.addEventListener('click',()=>openLightbox(idx));
     grid.appendChild(el);
   });
 }
 
-// ── Rating filter ──
-function setRating(rating, btn){
-  if (rating === 'nsfw' && !nsfwUnlocked){ promptNSFW(); return; }
-  ratingFilter = rating;
-  document.querySelectorAll('.rating-btn').forEach(b=>b.classList.remove('active'));
+function setRating(r,btn){
+  if(r==='nsfw'&&!nsfwUnlocked){showGate();return;}
+  ratingFilter=r;
+  document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   render();
 }
 
-// ── NSFW toggle in nav ──
 function toggleNSFW(){
-  if (!nsfwUnlocked){ promptNSFW(); return; }
-  nsfwUnlocked = !nsfwUnlocked;
-  syncNSFWUI();
+  if(!nsfwUnlocked){showGate();return;}
+  nsfwUnlocked=!nsfwUnlocked;
+  syncToggle();
+  if(!nsfwUnlocked&&ratingFilter==='nsfw'){
+    ratingFilter='sfw';
+    document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('active'));
+    document.querySelector('[data-rating="sfw"]').classList.add('active');
+  }
   render();
 }
 
-function promptNSFW(){
-  document.getElementById('age-gate').classList.remove('hidden');
-}
+function showGate(){document.getElementById('age-gate').classList.remove('hidden');}
 
 function unlockNSFW(){
-  nsfwUnlocked = true;
+  nsfwUnlocked=true;
   document.getElementById('age-gate').classList.add('hidden');
-  syncNSFWUI();
-  // Enable NSFW buttons
-  document.getElementById('nsfw-filter-btn').disabled = false;
-  document.getElementById('all-filter-btn').style.display = '';
-  render();
+  const nb=document.getElementById('nsfw-rbtn');
+  nb.style.opacity='';nb.style.cursor='';
+  document.getElementById('all-rbtn').style.display='';
+  syncToggle();render();
 }
 
 function dismissGate(){
   document.getElementById('age-gate').classList.add('hidden');
-  // Keep SFW filter active
-  ratingFilter = 'sfw';
-  document.querySelectorAll('.rating-btn').forEach(b=>b.classList.remove('active'));
+  ratingFilter='sfw';
+  document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('active'));
   document.querySelector('[data-rating="sfw"]').classList.add('active');
 }
 
-function syncNSFWUI(){
-  const track = document.getElementById('nsfw-toggle');
-  const label = document.getElementById('nsfw-label');
-  track.classList.toggle('on', nsfwUnlocked);
-  label.classList.toggle('active', nsfwUnlocked);
+function syncToggle(){
+  document.getElementById('nsfw-tog').classList.toggle('on',nsfwUnlocked);
+  document.getElementById('nsfw-lbl').classList.toggle('on',nsfwUnlocked);
 }
 
-// ── Type filter ──
 document.querySelectorAll('.type-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    typeFilter = btn.dataset.type;
+    typeFilter=btn.dataset.type;
     document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     artistFilter='all';
@@ -287,42 +244,23 @@ document.querySelectorAll('.type-btn').forEach(btn=>{
   });
 });
 
-// ── Artist sidebar ──
 function buildSidebar(){
   const artists=[...new Set(allItems.map(i=>i.artist))].sort();
-  const list=document.getElementById('artist-list');
-  list.innerHTML='';
-  const allBtn=document.createElement('button');
-  allBtn.className='sidebar-btn active';
-  allBtn.textContent='All Artists ('+allItems.length+')';
-  allBtn.onclick=()=>setArtist('all',allBtn);
-  list.appendChild(allBtn);
+  const list=document.getElementById('artist-list');list.innerHTML='';
+  const ab=document.createElement('button');ab.className='sidebar-btn active';ab.textContent='All Artists ('+allItems.length+')';ab.onclick=()=>setArtist('all',ab);list.appendChild(ab);
   artists.forEach(artist=>{
     const count=allItems.filter(i=>i.artist===artist).length;
-    const btn=document.createElement('button');
-    btn.className='sidebar-btn';
-    btn.textContent=artist+' ('+count+')';
-    btn.title=artist;
-    btn.onclick=()=>setArtist(artist,btn);
-    list.appendChild(btn);
+    const btn=document.createElement('button');btn.className='sidebar-btn';btn.textContent=artist+' ('+count+')';btn.title=artist;btn.onclick=()=>setArtist(artist,btn);list.appendChild(btn);
   });
 }
-function setArtist(artist,btn){
-  artistFilter=artist;
-  document.querySelectorAll('.sidebar-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  render();
-}
+function setArtist(a,btn){artistFilter=a;document.querySelectorAll('.sidebar-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render();}
 
-// ── Lightbox ──
 function openLightbox(idx){lbIdx=idx;showLb();document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
 function showLb(){
   const item=visible[lbIdx];
   document.getElementById('lb-img').src=item.src;
   document.getElementById('lb-title').textContent=item.title;
-  const badge = item.rating==='NSFW'
-    ? '<span class="lb-rating-badge lb-rating-nsfw">NSFW</span>'
-    : '<span class="lb-rating-badge lb-rating-sfw">SFW</span>';
+  const badge=item.rating==='NSFW'?'<span class="lb-rbadge lb-nsfw">NSFW</span>':'<span class="lb-rbadge lb-sfw">SFW</span>';
   document.getElementById('lb-sub').innerHTML='by '+item.artist+' · '+item.type+badge;
 }
 function closeLb(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}

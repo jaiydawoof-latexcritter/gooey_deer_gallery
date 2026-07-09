@@ -52,11 +52,92 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 .rbtn.active{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600;}
 .rbtn.nsfw-rbtn.active{background:var(--red);border-color:var(--red);}
 .page{display:none;}.page.active{display:block;}
-.hero{padding:60px 32px 40px;text-align:center;}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin-bottom:12px;}
-.hero h1 span{color:var(--accent);}
-.hero p{color:var(--muted);max-width:500px;margin:0 auto;line-height:1.7;font-size:0.95rem;}
-.filters{padding:0 32px 24px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+
+/* ── HERO BANNER ── */
+.hero-banner{
+  position:relative;
+  width:100%;
+  height:420px;
+  overflow:hidden;
+  background:var(--surface);
+}
+.hero-banner-img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  opacity:0;
+  transition:opacity 0.8s ease;
+  filter:brightness(0.55) saturate(1.1);
+}
+.hero-banner-img.loaded{opacity:1;}
+.hero-banner-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(26,28,34,0.15) 0%,
+    rgba(26,28,34,0.05) 35%,
+    rgba(26,28,34,0.05) 65%,
+    rgba(26,28,34,0.5) 100%
+  );
+}
+.hero-banner-content{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:0 32px;
+}
+.hero-banner-content h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,5.5vw,4rem);
+  line-height:1.1;
+  color:#fff;
+  text-shadow:
+    0 0 40px rgba(0,0,0,0.9),
+    0 2px 12px rgba(0,0,0,0.95),
+    0 0 3px rgba(0,0,0,1),
+    2px 2px 0 rgba(0,0,0,0.7),
+    -2px -2px 0 rgba(0,0,0,0.7),
+    2px -2px 0 rgba(0,0,0,0.7),
+    -2px 2px 0 rgba(0,0,0,0.7);
+  margin-bottom:12px;
+}
+.hero-banner-content h1 span{
+  color:var(--accent);
+  text-shadow:
+    0 0 40px rgba(0,0,0,0.9),
+    0 2px 12px rgba(0,0,0,0.95),
+    0 0 3px rgba(0,0,0,1),
+    2px 2px 0 rgba(0,0,0,0.7),
+    -2px -2px 0 rgba(0,0,0,0.7),
+    2px -2px 0 rgba(0,0,0,0.7),
+    -2px 2px 0 rgba(0,0,0,0.7),
+    0 0 60px rgba(74,200,212,0.3);
+}
+.hero-banner-content p{
+  font-size:0.95rem;
+  color:rgba(255,255,255,0.88);
+  max-width:480px;
+  line-height:1.7;
+  text-shadow:0 1px 8px rgba(0,0,0,0.9),0 0 3px rgba(0,0,0,1);
+}
+.hero-banner-artist{
+  position:absolute;
+  bottom:14px;
+  right:20px;
+  font-size:0.7rem;
+  color:rgba(255,255,255,0.5);
+  text-shadow:0 1px 4px rgba(0,0,0,0.8);
+}
+
+.filters{padding:24px 32px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
 .filter-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-right:4px;}
 .filter-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:6px 16px;border-radius:50px;font-size:0.82rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
 .filter-btn:hover{border-color:var(--accent);color:var(--text);}
@@ -80,7 +161,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 .refs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;padding:0 32px 60px;}
 .ref-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;animation:fadeIn .3s ease both;position:relative;}
 .ref-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(0,0,0,.4);border-color:var(--fur-blue);}
-.ref-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
 .ref-info{padding:12px 14px;}
 .ref-title{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:3px;}
 .ref-meta{font-size:0.75rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;}
@@ -103,8 +183,22 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 .lb-rbadge{font-size:0.63rem;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:50px;margin-left:8px;vertical-align:middle;}
 .lb-sfw{background:rgba(74,200,212,.15);color:var(--accent);}
 .lb-nsfw{background:rgba(204,34,34,.15);color:var(--red);}
+/* Refs hero - no banner, just simple heading */
+.refs-hero{padding:48px 32px 8px;text-align:center;}
+.refs-hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin-bottom:10px;}
+.refs-hero h1 span{color:var(--accent);}
+.refs-hero p{color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7;font-size:0.92rem;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
-@media(max-width:768px){nav{padding:0 16px;}.hero,.filters,.rbar{padding-left:16px;padding-right:16px;}.gallery-layout{padding:0 16px 40px;flex-direction:column;}.sidebar{display:none;}.gallery-grid{columns:2 150px;}.refs-grid{padding:0 16px 40px;grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){
+  nav{padding:0 16px;}
+  .hero-banner{height:280px;}
+  .hero-banner-content h1{font-size:clamp(1.6rem,7vw,2.4rem);}
+  .filters,.rbar{padding-left:16px;padding-right:16px;}
+  .gallery-layout{padding:0 16px 40px;flex-direction:column;}
+  .sidebar{display:none;}
+  .gallery-grid{columns:2 150px;}
+  .refs-grid{padding:0 16px 40px;grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body>
@@ -138,45 +232,53 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 
 <!-- GALLERY PAGE -->
 <div class="page active" id="page-gallery">
-<div class="hero">
-<h1>Welcome to<br><span>Jaiy's Gallery</span></h1>
-<p>A collection of commissioned furry art from artists across the community.</p>
-</div>
-<div class="filters">
-<span class="filter-label">Type</span>
-<button class="filter-btn type-btn active" data-type="all">All</button>
-<button class="filter-btn type-btn" data-type="Gooey">Gooey</button>
-<button class="filter-btn type-btn" data-type="Pooltoy">Pooltoy</button>
-<button class="filter-btn type-btn" data-type="Normal">Normal</button>
-<button class="filter-btn type-btn" data-type="Fursuit">Fursuit</button>
-<button class="filter-btn type-btn" data-type="Latex">Latex</button>
-<button class="filter-btn type-btn" data-type="Other">Other</button>
-</div>
-<div class="rbar">
-<span class="rlbl">Rating</span>
-<button class="rbtn active" data-rating="sfw" onclick="setRating('sfw',this)">SFW</button>
-<button class="rbtn nsfw-rbtn" data-rating="nsfw" id="nsfw-rbtn" onclick="setRating('nsfw',this)" style="opacity:.4;cursor:not-allowed">NSFW</button>
-<button class="rbtn" data-rating="all" id="all-rbtn" onclick="setRating('all',this)" style="display:none">All</button>
-</div>
-<div class="gallery-layout">
-<aside class="sidebar"><div class="sidebar-title">Artists</div><div id="artist-list"></div></aside>
-<div class="gallery-main"><div class="gallery-grid" id="gallery-grid"><div class="state-msg"><h3>Loading...</h3></div></div></div>
-</div>
+
+  <!-- HERO BANNER — random SFW image -->
+  <div class="hero-banner" id="hero-banner">
+    <img class="hero-banner-img" id="hero-banner-img" src="" alt="Banner">
+    <div class="hero-banner-overlay"></div>
+    <div class="hero-banner-content">
+      <h1>Welcome to<br><span>Jaiy's Gallery</span></h1>
+      <p>A collection of commissioned furry art from artists across the community.</p>
+    </div>
+    <div class="hero-banner-artist" id="hero-banner-artist"></div>
+  </div>
+
+  <div class="filters">
+  <span class="filter-label">Type</span>
+  <button class="filter-btn type-btn active" data-type="all">All</button>
+  <button class="filter-btn type-btn" data-type="Gooey">Gooey</button>
+  <button class="filter-btn type-btn" data-type="Pooltoy">Pooltoy</button>
+  <button class="filter-btn type-btn" data-type="Normal">Normal</button>
+  <button class="filter-btn type-btn" data-type="Fursuit">Fursuit</button>
+  <button class="filter-btn type-btn" data-type="Latex">Latex</button>
+  <button class="filter-btn type-btn" data-type="Other">Other</button>
+  </div>
+  <div class="rbar">
+  <span class="rlbl">Rating</span>
+  <button class="rbtn active" data-rating="sfw" onclick="setRating('sfw',this)">SFW</button>
+  <button class="rbtn nsfw-rbtn" data-rating="nsfw" id="nsfw-rbtn" onclick="setRating('nsfw',this)" style="opacity:.4;cursor:not-allowed">NSFW</button>
+  <button class="rbtn" data-rating="all" id="all-rbtn" onclick="setRating('all',this)" style="display:none">All</button>
+  </div>
+  <div class="gallery-layout">
+  <aside class="sidebar"><div class="sidebar-title">Artists</div><div id="artist-list"></div></aside>
+  <div class="gallery-main"><div class="gallery-grid" id="gallery-grid"><div class="state-msg"><h3>Loading...</h3></div></div></div>
+  </div>
 </div>
 
 <!-- REFS PAGE -->
 <div class="page" id="page-refs">
-<div class="hero">
-<h1>Reference <span>Sheets</span></h1>
-<p>Official character references for Jaiy — available for use by commissioned artists.</p>
-</div>
-<div class="rbar" id="refs-rbar">
-<span class="rlbl">Rating</span>
-<button class="rbtn active" data-rating="sfw" onclick="setRefsRating('sfw',this)">SFW</button>
-<button class="rbtn nsfw-rbtn" data-rating="nsfw" id="refs-nsfw-rbtn" onclick="setRefsRating('nsfw',this)" style="opacity:.4;cursor:not-allowed">NSFW</button>
-<button class="rbtn" data-rating="all" id="refs-all-rbtn" onclick="setRefsRating('all',this)" style="display:none">All</button>
-</div>
-<div class="refs-grid" id="refs-grid"><div class="state-msg"><h3>Loading...</h3></div></div>
+  <div class="refs-hero">
+    <h1>Reference <span>Sheets</span></h1>
+    <p>Official character references for Jaiy — available for use by commissioned artists.</p>
+  </div>
+  <div class="rbar" id="refs-rbar">
+  <span class="rlbl">Rating</span>
+  <button class="rbtn active" data-rating="sfw" onclick="setRefsRating('sfw',this)">SFW</button>
+  <button class="rbtn nsfw-rbtn" data-rating="nsfw" id="refs-nsfw-rbtn" onclick="setRefsRating('nsfw',this)" style="opacity:.4;cursor:not-allowed">NSFW</button>
+  <button class="rbtn" data-rating="all" id="refs-all-rbtn" onclick="setRefsRating('all',this)" style="display:none">All</button>
+  </div>
+  <div class="refs-grid" id="refs-grid"><div class="state-msg"><h3>Loading...</h3></div></div>
 </div>
 
 <div id="lightbox"><div class="lb-inner">
@@ -201,7 +303,28 @@ async function init(){
     document.getElementById('gallery-grid').innerHTML='<div class="state-msg"><h3>Could not load gallery.json</h3></div>';
     return;
   }
-  buildSidebar(); renderGallery(); renderRefs();
+  loadBanner();
+  buildSidebar();
+  renderGallery();
+  renderRefs();
+}
+
+// ── Random SFW Banner ──
+function loadBanner(){
+  const sfwItems = allItems.filter(i => i.rating === 'SFW');
+  if (!sfwItems.length) return;
+  const pick = sfwItems[Math.floor(Math.random() * sfwItems.length)];
+  const img = document.getElementById('hero-banner-img');
+  const credit = document.getElementById('hero-banner-artist');
+  img.onload = () => img.classList.add('loaded');
+  img.onerror = () => {
+    // Try another if first fails
+    const fallback = sfwItems[Math.floor(Math.random() * sfwItems.length)];
+    img.src = fallback.src;
+    credit.textContent = 'art by ' + fallback.artist;
+  };
+  img.src = pick.src;
+  credit.textContent = 'art by ' + pick.artist;
 }
 
 // ── Pages ──
@@ -247,7 +370,6 @@ function renderRefs(){
     const rOk=refsRatingFilter==='all'?true:refsRatingFilter==='nsfw'?r.rating==='NSFW':r.rating==='SFW';
     return rOk;
   });
-  document.getElementById('nav-count').textContent=visibleRefs.length+' refs';
   const grid=document.getElementById('refs-grid');
   if(!visibleRefs.length){grid.innerHTML='<div class="state-msg"><h3>No refs found</h3><p>Try a different filter.</p></div>';return;}
   grid.innerHTML='';
@@ -320,7 +442,7 @@ function toggleNSFW(){
     if(ratingFilter==='nsfw'){ratingFilter='sfw';document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#page-gallery [data-rating="sfw"]').classList.add('active');}
     if(refsRatingFilter==='nsfw'){refsRatingFilter='sfw';document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#refs-rbar [data-rating="sfw"]').classList.add('active');}
   }
-  renderGallery(); renderRefs();
+  renderGallery();renderRefs();
 }
 function showGate(){document.getElementById('age-gate').classList.remove('hidden');}
 function unlockNSFW(){
@@ -330,11 +452,11 @@ function unlockNSFW(){
     const el=document.getElementById(id);
     if(el){el.style.opacity='';el.style.cursor='';if(id.includes('all'))el.style.display='';}
   });
-  syncToggle(); renderGallery(); renderRefs();
+  syncToggle();renderGallery();renderRefs();
 }
 function dismissGate(){
   document.getElementById('age-gate').classList.add('hidden');
-  ratingFilter='sfw'; refsRatingFilter='sfw';
+  ratingFilter='sfw';refsRatingFilter='sfw';
   document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));
   document.querySelector('#page-gallery [data-rating="sfw"]').classList.add('active');
   document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));
@@ -347,7 +469,7 @@ function syncToggle(){
 
 // ── Lightbox ──
 function openLightbox(idx,mode){
-  lbIdx=idx; lbMode=mode;
+  lbIdx=idx;lbMode=mode;
   showLb();
   document.querySelector('.lb-nav').style.display=mode==='refs'?'none':'flex';
   document.getElementById('lightbox').classList.add('open');

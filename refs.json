@@ -1,5 +1,13 @@
 [
   {
+    "id": "ref_badroy_001",
+    "src": "images/refs/sfw/BadRoy/Jaiy_BadRoy_SolidRubber_ref.png",
+    "title": "Jaiy Solid Rubber Reference",
+    "artist": "BadRoy",
+    "version": "v1",
+    "rating": "SFW"
+  },
+  {
     "id": "ref_ifus_001",
     "src": "images/refs/nsfw/Ifus_references/Jaiy Ref Sheet Deer Parts - Ifus.png",
     "title": "Jaiy Deer Anatomy Reference",

@@ -10,19 +10,23 @@
 :root{--bg:#1a1c22;--surface:#22252e;--surface2:#2c3040;--border:#3a3f52;--accent:#4ac8d4;--fur-blue:#7a84a8;--text:#e8e4dc;--muted:#8a90a8;--red:#cc2222;--radius:12px;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
-.collar-band{width:100%;height:28px;background:linear-gradient(180deg,#a81818 0%,#cc2222 25%,#e03030 50%,#cc2222 75%,#a81818 100%);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,0.12),0 2px 8px rgba(0,0,0,0.5);}
-.collar-band::before,.collar-band::after{content:'';position:absolute;left:0;right:0;height:0;border-top:1px dashed rgba(255,255,255,0.18);}
+.collar-band{width:100%;height:28px;background:linear-gradient(180deg,#a81818 0%,#cc2222 25%,#e03030 50%,#cc2222 75%,#a81818 100%);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 2px 8px rgba(0,0,0,.5);}
+.collar-band::before,.collar-band::after{content:'';position:absolute;left:0;right:0;height:0;border-top:1px dashed rgba(255,255,255,.18);}
 .collar-band::before{top:4px;}.collar-band::after{bottom:4px;}
 .pendant-wrap{display:flex;flex-direction:column;align-items:center;}
 .pendant-loop{width:2px;height:6px;background:linear-gradient(180deg,#c4a030,#e8c84a);border-radius:1px;}
-.pendant{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 32%,#fff9d0 0%,#f0d050 18%,#e8c84a 40%,#c49418 70%,#a07810 100%);box-shadow:0 2px 8px rgba(0,0,0,0.55),0 0 0 1.5px rgba(180,130,20,0.7);position:relative;}
-.pendant::after{content:'';position:absolute;top:4px;left:5px;width:6px;height:4px;border-radius:50%;background:rgba(255,255,255,0.55);transform:rotate(-30deg);}
-nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;}
-.nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent);}
-.nav-right{display:flex;align-items:center;gap:12px;}
+.pendant{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 32%,#fff9d0 0%,#f0d050 18%,#e8c84a 40%,#c49418 70%,#a07810 100%);box-shadow:0 2px 8px rgba(0,0,0,.55),0 0 0 1.5px rgba(180,130,20,.7);position:relative;}
+.pendant::after{content:'';position:absolute;top:4px;left:5px;width:6px;height:4px;border-radius:50%;background:rgba(255,255,255,.55);transform:rotate(-30deg);}
+nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;gap:0;height:60px;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--accent);margin-right:24px;white-space:nowrap;}
+.nav-tabs{display:flex;gap:4px;flex:1;}
+.nav-tab{background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.85rem;padding:6px 14px;border-radius:8px;cursor:pointer;transition:all .2s;}
+.nav-tab:hover{background:var(--surface);color:var(--text);}
+.nav-tab.active{background:var(--surface2);color:var(--accent);font-weight:600;}
+.nav-right{display:flex;align-items:center;gap:12px;margin-left:auto;}
 .nav-count{font-size:0.78rem;color:var(--muted);background:var(--surface2);padding:4px 12px;border-radius:50px;border:1px solid var(--border);}
 .nsfw-wrap{display:flex;align-items:center;gap:7px;}
-.nsfw-lbl{font-size:0.72rem;font-weight:700;letter-spacing:0.06em;color:var(--muted);transition:color .2s;}
+.nsfw-lbl{font-size:0.72rem;font-weight:700;letter-spacing:.06em;color:var(--muted);transition:color .2s;}
 .nsfw-lbl.on{color:var(--red);}
 .tog{width:38px;height:22px;border-radius:11px;background:var(--surface2);border:1px solid var(--border);cursor:pointer;position:relative;transition:all .25s;}
 .tog.on{background:var(--red);border-color:var(--red);}
@@ -47,6 +51,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,0.96);backdrop-fi
 .rbtn:hover{border-color:var(--accent);color:var(--text);}
 .rbtn.active{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600;}
 .rbtn.nsfw-rbtn.active{background:var(--red);border-color:var(--red);}
+.page{display:none;}.page.active{display:block;}
 .hero{padding:60px 32px 40px;text-align:center;}
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin-bottom:12px;}
 .hero h1 span{color:var(--accent);}
@@ -72,6 +77,16 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,0.96);backdrop-fi
 .item-info{padding:9px 11px;display:flex;justify-content:space-between;align-items:center;}
 .item-artist{font-size:0.74rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%;}
 .item-type{font-size:0.65rem;color:var(--fur-blue);background:rgba(122,132,168,.15);padding:2px 7px;border-radius:50px;}
+.refs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;padding:0 32px 60px;}
+.ref-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;animation:fadeIn .3s ease both;position:relative;}
+.ref-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(0,0,0,.4);border-color:var(--fur-blue);}
+.ref-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+.ref-info{padding:12px 14px;}
+.ref-title{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:3px;}
+.ref-meta{font-size:0.75rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;}
+.ref-rating{font-size:0.62rem;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:50px;}
+.ref-sfw{background:rgba(74,200,212,.15);color:var(--accent);}
+.ref-nsfw{background:rgba(204,34,34,.15);color:var(--red);}
 .state-msg{text-align:center;padding:80px 32px;color:var(--muted);}
 .state-msg h3{font-size:1.1rem;margin-bottom:8px;color:var(--text);}
 #lightbox{position:fixed;inset:0;z-index:1000;background:rgba(14,16,20,.97);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px;}
@@ -89,7 +104,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,0.96);backdrop-fi
 .lb-sfw{background:rgba(74,200,212,.15);color:var(--accent);}
 .lb-nsfw{background:rgba(204,34,34,.15);color:var(--red);}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
-@media(max-width:768px){nav,.hero,.filters,.rbar{padding-left:16px;padding-right:16px;}.gallery-layout{padding:0 16px 40px;flex-direction:column;}.sidebar{display:none;}.gallery-grid{columns:2 150px;}}
+@media(max-width:768px){nav{padding:0 16px;}.hero,.filters,.rbar{padding-left:16px;padding-right:16px;}.gallery-layout{padding:0 16px 40px;flex-direction:column;}.sidebar{display:none;}.gallery-grid{columns:2 150px;}.refs-grid{padding:0 16px 40px;grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
@@ -108,6 +123,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,0.96);backdrop-fi
 
 <nav>
 <div class="nav-logo">Jaiy's Gallery</div>
+<div class="nav-tabs">
+<button class="nav-tab active" onclick="showPage('gallery')">Gallery</button>
+<button class="nav-tab" onclick="showPage('refs')">Ref Sheets</button>
+</div>
 <div class="nav-right">
 <span class="nav-count" id="nav-count">Loading...</span>
 <div class="nsfw-wrap" title="Toggle NSFW content">
@@ -117,11 +136,12 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,0.96);backdrop-fi
 </div>
 </nav>
 
+<!-- GALLERY PAGE -->
+<div class="page active" id="page-gallery">
 <div class="hero">
 <h1>Welcome to<br><span>Jaiy's Gallery</span></h1>
 <p>A collection of commissioned furry art from artists across the community.</p>
 </div>
-
 <div class="filters">
 <span class="filter-label">Type</span>
 <button class="filter-btn type-btn active" data-type="all">All</button>
@@ -132,17 +152,31 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,0.96);backdrop-fi
 <button class="filter-btn type-btn" data-type="Latex">Latex</button>
 <button class="filter-btn type-btn" data-type="Other">Other</button>
 </div>
-
 <div class="rbar">
 <span class="rlbl">Rating</span>
 <button class="rbtn active" data-rating="sfw" onclick="setRating('sfw',this)">SFW</button>
-<button class="rbtn nsfw-rbtn" data-rating="nsfw" id="nsfw-rbtn" onclick="setRating('nsfw',this)" style="opacity:0.4;cursor:not-allowed">NSFW</button>
+<button class="rbtn nsfw-rbtn" data-rating="nsfw" id="nsfw-rbtn" onclick="setRating('nsfw',this)" style="opacity:.4;cursor:not-allowed">NSFW</button>
 <button class="rbtn" data-rating="all" id="all-rbtn" onclick="setRating('all',this)" style="display:none">All</button>
 </div>
-
 <div class="gallery-layout">
 <aside class="sidebar"><div class="sidebar-title">Artists</div><div id="artist-list"></div></aside>
 <div class="gallery-main"><div class="gallery-grid" id="gallery-grid"><div class="state-msg"><h3>Loading...</h3></div></div></div>
+</div>
+</div>
+
+<!-- REFS PAGE -->
+<div class="page" id="page-refs">
+<div class="hero">
+<h1>Reference <span>Sheets</span></h1>
+<p>Official character references for Jaiy — available for use by commissioned artists.</p>
+</div>
+<div class="rbar" id="refs-rbar">
+<span class="rlbl">Rating</span>
+<button class="rbtn active" data-rating="sfw" onclick="setRefsRating('sfw',this)">SFW</button>
+<button class="rbtn nsfw-rbtn" data-rating="nsfw" id="refs-nsfw-rbtn" onclick="setRefsRating('nsfw',this)" style="opacity:.4;cursor:not-allowed">NSFW</button>
+<button class="rbtn" data-rating="all" id="refs-all-rbtn" onclick="setRefsRating('all',this)" style="display:none">All</button>
+</div>
+<div class="refs-grid" id="refs-grid"><div class="state-msg"><h3>Loading...</h3></div></div>
 </div>
 
 <div id="lightbox"><div class="lb-inner">
@@ -153,15 +187,35 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,0.96);backdrop-fi
 </div></div>
 
 <script>
-let allItems=[],visible=[],lbIdx=0,typeFilter='all',ratingFilter='sfw',artistFilter='all',nsfwUnlocked=false;
+let allItems=[],allRefs=[],visible=[],visibleRefs=[],lbIdx=0,lbMode='gallery';
+let typeFilter='all',ratingFilter='sfw',refsRatingFilter='sfw',artistFilter='all',nsfwUnlocked=false;
 
 async function init(){
-  try{const r=await fetch('gallery.json?v='+Date.now());allItems=await r.json();}
-  catch(e){document.getElementById('gallery-grid').innerHTML='<div class="state-msg"><h3>Could not load gallery.json</h3></div>';return;}
-  buildSidebar();render();
+  try{
+    const [gr,rr]=await Promise.all([
+      fetch('gallery.json?v='+Date.now()).then(r=>r.json()),
+      fetch('refs.json?v='+Date.now()).then(r=>r.json())
+    ]);
+    allItems=gr; allRefs=rr;
+  } catch(e){
+    document.getElementById('gallery-grid').innerHTML='<div class="state-msg"><h3>Could not load gallery.json</h3></div>';
+    return;
+  }
+  buildSidebar(); renderGallery(); renderRefs();
 }
 
-function render(){
+// ── Pages ──
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelector('.nav-tab[onclick*="'+name+'"]').classList.add('active');
+  document.getElementById('nav-count').textContent=
+    name==='gallery'?visible.length+' pieces':visibleRefs.length+' refs';
+}
+
+// ── Gallery render ──
+function renderGallery(){
   visible=allItems.filter(i=>{
     const tOk=typeFilter==='all'||i.type===typeFilter;
     const aOk=artistFilter==='all'||i.artist===artistFilter;
@@ -179,59 +233,60 @@ function render(){
     el.className='gallery-item';
     el.style.animationDelay=Math.min(idx*0.03,0.6)+'s';
     el.innerHTML=
-      '<div class="'+(blurred?'nsfw-blur':'')+'">' +
-        '<img src="'+item.src+'" alt="'+item.title+'" loading="lazy">' +
-      '</div>'+
+      '<div class="'+(blurred?'nsfw-blur':'')+'"><img src="'+item.src+'" alt="'+item.title+'" loading="lazy"></div>'+
       (blurred?'<div class="nsfw-ov" onclick="showGate()"><span class="nsfw-badge">NSFW</span><p>Unlock to view</p></div>':'')+
       '<div class="item-info"><span class="item-artist">by '+item.artist+'</span><span class="item-type">'+item.type+'</span></div>';
-    if(!blurred)el.addEventListener('click',()=>openLightbox(idx));
+    if(!blurred)el.addEventListener('click',()=>openLightbox(idx,'gallery'));
     grid.appendChild(el);
   });
 }
 
+// ── Refs render ──
+function renderRefs(){
+  visibleRefs=allRefs.filter(r=>{
+    const rOk=refsRatingFilter==='all'?true:refsRatingFilter==='nsfw'?r.rating==='NSFW':r.rating==='SFW';
+    return rOk;
+  });
+  document.getElementById('nav-count').textContent=visibleRefs.length+' refs';
+  const grid=document.getElementById('refs-grid');
+  if(!visibleRefs.length){grid.innerHTML='<div class="state-msg"><h3>No refs found</h3><p>Try a different filter.</p></div>';return;}
+  grid.innerHTML='';
+  visibleRefs.forEach((ref,idx)=>{
+    const isNSFW=ref.rating==='NSFW';
+    const blurred=isNSFW&&!nsfwUnlocked;
+    const el=document.createElement('div');
+    el.className='ref-card';
+    el.style.animationDelay=Math.min(idx*0.06,0.6)+'s';
+    el.innerHTML=
+      '<div style="position:relative;overflow:hidden;">'+
+        '<div class="'+(blurred?'nsfw-blur':'')+'"><img src="'+ref.src+'" alt="'+ref.title+'" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div>'+
+        (blurred?'<div class="nsfw-ov" onclick="showGate()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;"><span class="nsfw-badge">NSFW</span><p style="font-size:.7rem;color:rgba(255,255,255,.75);">Unlock to view</p></div>':'')+
+      '</div>'+
+      '<div class="ref-info"><div class="ref-title">'+ref.title+'</div>'+
+      '<div class="ref-meta"><span>by '+ref.artist+(ref.version?' &middot; '+ref.version:'')+'</span>'+
+      '<span class="ref-rating '+(isNSFW?'ref-nsfw':'ref-sfw')+'">'+ref.rating+'</span></div></div>';
+    if(!blurred)el.addEventListener('click',()=>openLightbox(idx,'refs'));
+    grid.appendChild(el);
+  });
+}
+
+// ── Rating filters ──
 function setRating(r,btn){
   if(r==='nsfw'&&!nsfwUnlocked){showGate();return;}
   ratingFilter=r;
-  document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  render();
+  renderGallery();
+}
+function setRefsRating(r,btn){
+  if(r==='nsfw'&&!nsfwUnlocked){showGate();return;}
+  refsRatingFilter=r;
+  document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderRefs();
 }
 
-function toggleNSFW(){
-  if(!nsfwUnlocked){showGate();return;}
-  nsfwUnlocked=!nsfwUnlocked;
-  syncToggle();
-  if(!nsfwUnlocked&&ratingFilter==='nsfw'){
-    ratingFilter='sfw';
-    document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('active'));
-    document.querySelector('[data-rating="sfw"]').classList.add('active');
-  }
-  render();
-}
-
-function showGate(){document.getElementById('age-gate').classList.remove('hidden');}
-
-function unlockNSFW(){
-  nsfwUnlocked=true;
-  document.getElementById('age-gate').classList.add('hidden');
-  const nb=document.getElementById('nsfw-rbtn');
-  nb.style.opacity='';nb.style.cursor='';
-  document.getElementById('all-rbtn').style.display='';
-  syncToggle();render();
-}
-
-function dismissGate(){
-  document.getElementById('age-gate').classList.add('hidden');
-  ratingFilter='sfw';
-  document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('active'));
-  document.querySelector('[data-rating="sfw"]').classList.add('active');
-}
-
-function syncToggle(){
-  document.getElementById('nsfw-tog').classList.toggle('on',nsfwUnlocked);
-  document.getElementById('nsfw-lbl').classList.toggle('on',nsfwUnlocked);
-}
-
+// ── Type filter ──
 document.querySelectorAll('.type-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     typeFilter=btn.dataset.type;
@@ -240,10 +295,11 @@ document.querySelectorAll('.type-btn').forEach(btn=>{
     artistFilter='all';
     document.querySelectorAll('.sidebar-btn').forEach(b=>b.classList.remove('active'));
     document.querySelector('.sidebar-btn')?.classList.add('active');
-    render();
+    renderGallery();
   });
 });
 
+// ── Artist sidebar ──
 function buildSidebar(){
   const artists=[...new Set(allItems.map(i=>i.artist))].sort();
   const list=document.getElementById('artist-list');list.innerHTML='';
@@ -253,15 +309,58 @@ function buildSidebar(){
     const btn=document.createElement('button');btn.className='sidebar-btn';btn.textContent=artist+' ('+count+')';btn.title=artist;btn.onclick=()=>setArtist(artist,btn);list.appendChild(btn);
   });
 }
-function setArtist(a,btn){artistFilter=a;document.querySelectorAll('.sidebar-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render();}
+function setArtist(a,btn){artistFilter=a;document.querySelectorAll('.sidebar-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderGallery();}
 
-function openLightbox(idx){lbIdx=idx;showLb();document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
+// ── NSFW toggle ──
+function toggleNSFW(){
+  if(!nsfwUnlocked){showGate();return;}
+  nsfwUnlocked=!nsfwUnlocked;
+  syncToggle();
+  if(!nsfwUnlocked){
+    if(ratingFilter==='nsfw'){ratingFilter='sfw';document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#page-gallery [data-rating="sfw"]').classList.add('active');}
+    if(refsRatingFilter==='nsfw'){refsRatingFilter='sfw';document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#refs-rbar [data-rating="sfw"]').classList.add('active');}
+  }
+  renderGallery(); renderRefs();
+}
+function showGate(){document.getElementById('age-gate').classList.remove('hidden');}
+function unlockNSFW(){
+  nsfwUnlocked=true;
+  document.getElementById('age-gate').classList.add('hidden');
+  ['nsfw-rbtn','all-rbtn','refs-nsfw-rbtn','refs-all-rbtn'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.style.opacity='';el.style.cursor='';if(id.includes('all'))el.style.display='';}
+  });
+  syncToggle(); renderGallery(); renderRefs();
+}
+function dismissGate(){
+  document.getElementById('age-gate').classList.add('hidden');
+  ratingFilter='sfw'; refsRatingFilter='sfw';
+  document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('#page-gallery [data-rating="sfw"]').classList.add('active');
+  document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('#refs-rbar [data-rating="sfw"]').classList.add('active');
+}
+function syncToggle(){
+  document.getElementById('nsfw-tog').classList.toggle('on',nsfwUnlocked);
+  document.getElementById('nsfw-lbl').classList.toggle('on',nsfwUnlocked);
+}
+
+// ── Lightbox ──
+function openLightbox(idx,mode){
+  lbIdx=idx; lbMode=mode;
+  showLb();
+  document.querySelector('.lb-nav').style.display=mode==='refs'?'none':'flex';
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
 function showLb(){
-  const item=visible[lbIdx];
+  const item=lbMode==='refs'?visibleRefs[lbIdx]:visible[lbIdx];
+  if(!item)return;
   document.getElementById('lb-img').src=item.src;
   document.getElementById('lb-title').textContent=item.title;
   const badge=item.rating==='NSFW'?'<span class="lb-rbadge lb-nsfw">NSFW</span>':'<span class="lb-rbadge lb-sfw">SFW</span>';
-  document.getElementById('lb-sub').innerHTML='by '+item.artist+' · '+item.type+badge;
+  const sub=lbMode==='refs'?'by '+item.artist+(item.version?' · '+item.version:''):('by '+item.artist+' · '+item.type);
+  document.getElementById('lb-sub').innerHTML=sub+badge;
 }
 function closeLb(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
 document.getElementById('lb-close').onclick=closeLb;
@@ -271,8 +370,10 @@ document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===d
 document.addEventListener('keydown',e=>{
   if(!document.getElementById('lightbox').classList.contains('open'))return;
   if(e.key==='Escape')closeLb();
-  if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+visible.length)%visible.length;showLb();}
-  if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%visible.length;showLb();}
+  if(lbMode==='gallery'){
+    if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+visible.length)%visible.length;showLb();}
+    if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%visible.length;showLb();}
+  }
 });
 
 init();

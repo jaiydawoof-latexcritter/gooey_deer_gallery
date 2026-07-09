@@ -8,6 +8,22 @@
     "rating": "SFW"
   },
   {
+    "id": "ref_cubi_001",
+    "src": "images/refs/sfw/Cubi/Jaiy_gooey_reference_Cubi.png",
+    "title": "Jaiy Gooey Reference",
+    "artist": "Cubi",
+    "version": "v1",
+    "rating": "SFW"
+  },
+  {
+    "id": "ref_cubi_002",
+    "src": "images/refs/sfw/Cubi/Jaiy_pooltoy_reference_Cubi.png",
+    "title": "Jaiy Pooltoy Reference",
+    "artist": "Cubi",
+    "version": "v1",
+    "rating": "SFW"
+  },
+  {
     "id": "ref_ifus_001",
     "src": "images/refs/nsfw/Ifus_references/Jaiy Ref Sheet Deer Parts - Ifus.png",
     "title": "Jaiy Deer Anatomy Reference",

@@ -52,91 +52,15 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 .rbtn.active{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600;}
 .rbtn.nsfw-rbtn.active{background:var(--red);border-color:var(--red);}
 .page{display:none;}.page.active{display:block;}
-
-/* ── HERO BANNER ── */
-.hero-banner{
-  position:relative;
-  width:100%;
-  height:420px;
-  overflow:hidden;
-  background:var(--surface);
-}
-.hero-banner-img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  opacity:0;
-  transition:opacity 0.8s ease;
-  filter:brightness(0.55) saturate(1.1);
-}
+.hero-banner{position:relative;width:100%;height:420px;overflow:hidden;background:var(--surface);}
+.hero-banner-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 0.8s ease;filter:brightness(0.55) saturate(1.1);}
 .hero-banner-img.loaded{opacity:1;}
-.hero-banner-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(26,28,34,0.15) 0%,
-    rgba(26,28,34,0.05) 35%,
-    rgba(26,28,34,0.05) 65%,
-    rgba(26,28,34,0.5) 100%
-  );
-}
-.hero-banner-content{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:0 32px;
-}
-.hero-banner-content h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.2rem,5.5vw,4rem);
-  line-height:1.1;
-  color:#fff;
-  text-shadow:
-    0 0 40px rgba(0,0,0,0.9),
-    0 2px 12px rgba(0,0,0,0.95),
-    0 0 3px rgba(0,0,0,1),
-    2px 2px 0 rgba(0,0,0,0.7),
-    -2px -2px 0 rgba(0,0,0,0.7),
-    2px -2px 0 rgba(0,0,0,0.7),
-    -2px 2px 0 rgba(0,0,0,0.7);
-  margin-bottom:12px;
-}
-.hero-banner-content h1 span{
-  color:var(--accent);
-  text-shadow:
-    0 0 40px rgba(0,0,0,0.9),
-    0 2px 12px rgba(0,0,0,0.95),
-    0 0 3px rgba(0,0,0,1),
-    2px 2px 0 rgba(0,0,0,0.7),
-    -2px -2px 0 rgba(0,0,0,0.7),
-    2px -2px 0 rgba(0,0,0,0.7),
-    -2px 2px 0 rgba(0,0,0,0.7),
-    0 0 60px rgba(74,200,212,0.3);
-}
-.hero-banner-content p{
-  font-size:0.95rem;
-  color:rgba(255,255,255,0.88);
-  max-width:480px;
-  line-height:1.7;
-  text-shadow:0 1px 8px rgba(0,0,0,0.9),0 0 3px rgba(0,0,0,1);
-}
-.hero-banner-artist{
-  position:absolute;
-  bottom:14px;
-  right:20px;
-  font-size:0.7rem;
-  color:rgba(255,255,255,0.5);
-  text-shadow:0 1px 4px rgba(0,0,0,0.8);
-}
-
+.hero-banner-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,28,34,0.15) 0%,rgba(26,28,34,0.05) 35%,rgba(26,28,34,0.05) 65%,rgba(26,28,34,0.5) 100%);}
+.hero-banner-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 32px;}
+.hero-banner-content h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5.5vw,4rem);line-height:1.1;color:#fff;text-shadow:0 0 40px rgba(0,0,0,.9),0 2px 12px rgba(0,0,0,.95),0 0 3px rgba(0,0,0,1),2px 2px 0 rgba(0,0,0,.7),-2px -2px 0 rgba(0,0,0,.7),2px -2px 0 rgba(0,0,0,.7),-2px 2px 0 rgba(0,0,0,.7);margin-bottom:12px;}
+.hero-banner-content h1 span{color:var(--accent);text-shadow:0 0 40px rgba(0,0,0,.9),0 2px 12px rgba(0,0,0,.95),0 0 3px rgba(0,0,0,1),2px 2px 0 rgba(0,0,0,.7),-2px -2px 0 rgba(0,0,0,.7),2px -2px 0 rgba(0,0,0,.7),-2px 2px 0 rgba(0,0,0,.7),0 0 60px rgba(74,200,212,.3);}
+.hero-banner-content p{font-size:0.95rem;color:rgba(255,255,255,.88);max-width:480px;line-height:1.7;text-shadow:0 1px 8px rgba(0,0,0,.9),0 0 3px rgba(0,0,0,1);}
+.hero-banner-artist{position:absolute;bottom:14px;right:20px;font-size:0.7rem;color:rgba(255,255,255,.5);text-shadow:0 1px 4px rgba(0,0,0,.8);}
 .filters{padding:24px 32px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
 .filter-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-right:4px;}
 .filter-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:6px 16px;border-radius:50px;font-size:0.82rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
@@ -158,6 +82,18 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 .item-info{padding:9px 11px;display:flex;justify-content:space-between;align-items:center;}
 .item-artist{font-size:0.74rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%;}
 .item-type{font-size:0.65rem;color:var(--fur-blue);background:rgba(122,132,168,.15);padding:2px 7px;border-radius:50px;}
+/* Sketches grid — masonry like gallery but no type badge */
+.sketches-grid{columns:4 220px;gap:12px;padding:0 32px 60px;}
+.sketch-item{break-inside:avoid;margin-bottom:12px;border-radius:var(--radius);overflow:hidden;cursor:pointer;background:var(--surface);border:1px solid var(--border);transition:transform .2s,box-shadow .2s,border-color .2s;animation:fadeIn .3s ease both;position:relative;}
+.sketch-item:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(0,0,0,.4);border-color:var(--fur-blue);}
+.sketch-item img{width:100%;display:block;transition:transform .3s;}
+.sketch-item:hover img{transform:scale(1.03);}
+.sketch-info{padding:9px 11px;display:flex;justify-content:space-between;align-items:center;}
+.sketch-artist{font-size:0.74rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sketch-rating{font-size:0.62rem;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:50px;flex-shrink:0;}
+.sr-sfw{background:rgba(74,200,212,.15);color:var(--accent);}
+.sr-nsfw{background:rgba(204,34,34,.15);color:var(--red);}
+/* Refs grid */
 .refs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;padding:0 32px 60px;}
 .ref-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;animation:fadeIn .3s ease both;position:relative;}
 .ref-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(0,0,0,.4);border-color:var(--fur-blue);}
@@ -167,6 +103,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 .ref-rating{font-size:0.62rem;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:50px;}
 .ref-sfw{background:rgba(74,200,212,.15);color:var(--accent);}
 .ref-nsfw{background:rgba(204,34,34,.15);color:var(--red);}
+.section-hero{padding:48px 32px 8px;text-align:center;}
+.section-hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin-bottom:10px;}
+.section-hero h1 span{color:var(--accent);}
+.section-hero p{color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7;font-size:0.92rem;}
 .state-msg{text-align:center;padding:80px 32px;color:var(--muted);}
 .state-msg h3{font-size:1.1rem;margin-bottom:8px;color:var(--text);}
 #lightbox{position:fixed;inset:0;z-index:1000;background:rgba(14,16,20,.97);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px;}
@@ -183,11 +123,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 .lb-rbadge{font-size:0.63rem;font-weight:700;letter-spacing:.08em;padding:2px 8px;border-radius:50px;margin-left:8px;vertical-align:middle;}
 .lb-sfw{background:rgba(74,200,212,.15);color:var(--accent);}
 .lb-nsfw{background:rgba(204,34,34,.15);color:var(--red);}
-/* Refs hero - no banner, just simple heading */
-.refs-hero{padding:48px 32px 8px;text-align:center;}
-.refs-hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin-bottom:10px;}
-.refs-hero h1 span{color:var(--accent);}
-.refs-hero p{color:var(--muted);max-width:480px;margin:0 auto;line-height:1.7;font-size:0.92rem;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
 @media(max-width:768px){
   nav{padding:0 16px;}
@@ -197,6 +132,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
   .gallery-layout{padding:0 16px 40px;flex-direction:column;}
   .sidebar{display:none;}
   .gallery-grid{columns:2 150px;}
+  .sketches-grid{columns:2 150px;padding:0 16px 40px;}
   .refs-grid{padding:0 16px 40px;grid-template-columns:1fr 1fr;}
 }
 </style>
@@ -219,6 +155,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 <div class="nav-logo">Jaiy's Gallery</div>
 <div class="nav-tabs">
 <button class="nav-tab active" onclick="showPage('gallery')">Gallery</button>
+<button class="nav-tab" onclick="showPage('sketches')">Sketches</button>
 <button class="nav-tab" onclick="showPage('refs')">Ref Sheets</button>
 </div>
 <div class="nav-right">
@@ -232,8 +169,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 
 <!-- GALLERY PAGE -->
 <div class="page active" id="page-gallery">
-
-  <!-- HERO BANNER — random SFW image -->
   <div class="hero-banner" id="hero-banner">
     <img class="hero-banner-img" id="hero-banner-img" src="" alt="Banner">
     <div class="hero-banner-overlay"></div>
@@ -243,7 +178,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
     </div>
     <div class="hero-banner-artist" id="hero-banner-artist"></div>
   </div>
-
   <div class="filters">
   <span class="filter-label">Type</span>
   <button class="filter-btn type-btn active" data-type="all">All</button>
@@ -266,9 +200,24 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
   </div>
 </div>
 
+<!-- SKETCHES PAGE -->
+<div class="page" id="page-sketches">
+  <div class="section-hero">
+    <h1>Sketch <span>Collection</span></h1>
+    <p>Rough sketches and line art — the raw creative process behind the commissions.</p>
+  </div>
+  <div class="rbar" id="sketches-rbar">
+  <span class="rlbl">Rating</span>
+  <button class="rbtn active" data-rating="sfw" onclick="setSketchesRating('sfw',this)">SFW</button>
+  <button class="rbtn nsfw-rbtn" data-rating="nsfw" id="sketches-nsfw-rbtn" onclick="setSketchesRating('nsfw',this)" style="opacity:.4;cursor:not-allowed">NSFW</button>
+  <button class="rbtn" data-rating="all" id="sketches-all-rbtn" onclick="setSketchesRating('all',this)" style="display:none">All</button>
+  </div>
+  <div class="sketches-grid" id="sketches-grid"><div class="state-msg"><h3>Loading...</h3></div></div>
+</div>
+
 <!-- REFS PAGE -->
 <div class="page" id="page-refs">
-  <div class="refs-hero">
+  <div class="section-hero">
     <h1>Reference <span>Sheets</span></h1>
     <p>Official character references for Jaiy — available for use by commissioned artists.</p>
   </div>
@@ -289,55 +238,44 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 </div></div>
 
 <script>
-let allItems=[],allRefs=[],visible=[],visibleRefs=[],lbIdx=0,lbMode='gallery';
-let typeFilter='all',ratingFilter='sfw',refsRatingFilter='sfw',artistFilter='all',nsfwUnlocked=false;
+let allItems=[],allSketches=[],allRefs=[],visible=[],visibleSketches=[],visibleRefs=[],lbIdx=0,lbMode='gallery';
+let typeFilter='all',ratingFilter='sfw',sketchesRatingFilter='sfw',refsRatingFilter='sfw',artistFilter='all',nsfwUnlocked=false;
 
 async function init(){
   try{
-    const [gr,rr]=await Promise.all([
+    const [gr,sr,rr]=await Promise.all([
       fetch('gallery.json?v='+Date.now()).then(r=>r.json()),
+      fetch('sketches.json?v='+Date.now()).then(r=>r.json()),
       fetch('refs.json?v='+Date.now()).then(r=>r.json())
     ]);
-    allItems=gr; allRefs=rr;
+    allItems=gr; allSketches=sr; allRefs=rr;
   } catch(e){
-    document.getElementById('gallery-grid').innerHTML='<div class="state-msg"><h3>Could not load gallery.json</h3></div>';
+    document.getElementById('gallery-grid').innerHTML='<div class="state-msg"><h3>Could not load data</h3></div>';
     return;
   }
-  loadBanner();
-  buildSidebar();
-  renderGallery();
-  renderRefs();
+  loadBanner(); buildSidebar(); renderGallery(); renderSketches(); renderRefs();
 }
 
-// ── Random SFW Banner ──
 function loadBanner(){
-  const sfwItems = allItems.filter(i => i.rating === 'SFW');
-  if (!sfwItems.length) return;
-  const pick = sfwItems[Math.floor(Math.random() * sfwItems.length)];
-  const img = document.getElementById('hero-banner-img');
-  const credit = document.getElementById('hero-banner-artist');
-  img.onload = () => img.classList.add('loaded');
-  img.onerror = () => {
-    // Try another if first fails
-    const fallback = sfwItems[Math.floor(Math.random() * sfwItems.length)];
-    img.src = fallback.src;
-    credit.textContent = 'art by ' + fallback.artist;
-  };
-  img.src = pick.src;
-  credit.textContent = 'art by ' + pick.artist;
+  const sfw=allItems.filter(i=>i.rating==='SFW');
+  if(!sfw.length)return;
+  const pick=sfw[Math.floor(Math.random()*sfw.length)];
+  const img=document.getElementById('hero-banner-img');
+  img.onload=()=>img.classList.add('loaded');
+  img.onerror=()=>{const fb=sfw[Math.floor(Math.random()*sfw.length)];img.src=fb.src;document.getElementById('hero-banner-artist').textContent='art by '+fb.artist;};
+  img.src=pick.src;
+  document.getElementById('hero-banner-artist').textContent='art by '+pick.artist;
 }
 
-// ── Pages ──
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.querySelector('.nav-tab[onclick*="'+name+'"]').classList.add('active');
-  document.getElementById('nav-count').textContent=
-    name==='gallery'?visible.length+' pieces':visibleRefs.length+' refs';
+  const counts={gallery:visible.length+' pieces',sketches:visibleSketches.length+' sketches',refs:visibleRefs.length+' refs'};
+  document.getElementById('nav-count').textContent=counts[name]||'';
 }
 
-// ── Gallery render ──
 function renderGallery(){
   visible=allItems.filter(i=>{
     const tOk=typeFilter==='all'||i.type===typeFilter;
@@ -350,21 +288,34 @@ function renderGallery(){
   if(!visible.length){grid.innerHTML='<div class="state-msg"><h3>No results</h3><p>Try a different filter.</p></div>';return;}
   grid.innerHTML='';
   visible.forEach((item,idx)=>{
-    const isNSFW=item.rating==='NSFW';
-    const blurred=isNSFW&&!nsfwUnlocked;
-    const el=document.createElement('div');
-    el.className='gallery-item';
-    el.style.animationDelay=Math.min(idx*0.03,0.6)+'s';
-    el.innerHTML=
-      '<div class="'+(blurred?'nsfw-blur':'')+'"><img src="'+item.src+'" alt="'+item.title+'" loading="lazy"></div>'+
-      (blurred?'<div class="nsfw-ov" onclick="showGate()"><span class="nsfw-badge">NSFW</span><p>Unlock to view</p></div>':'')+
-      '<div class="item-info"><span class="item-artist">by '+item.artist+'</span><span class="item-type">'+item.type+'</span></div>';
+    const isNSFW=item.rating==='NSFW',blurred=isNSFW&&!nsfwUnlocked;
+    const el=document.createElement('div');el.className='gallery-item';el.style.animationDelay=Math.min(idx*0.03,0.6)+'s';
+    el.innerHTML='<div class="'+(blurred?'nsfw-blur':'')+'"><img src="'+item.src+'" alt="'+item.title+'" loading="lazy"></div>'+(blurred?'<div class="nsfw-ov" onclick="showGate()"><span class="nsfw-badge">NSFW</span><p>Unlock to view</p></div>':'')+'<div class="item-info"><span class="item-artist">by '+item.artist+'</span><span class="item-type">'+item.type+'</span></div>';
     if(!blurred)el.addEventListener('click',()=>openLightbox(idx,'gallery'));
     grid.appendChild(el);
   });
 }
 
-// ── Refs render ──
+function renderSketches(){
+  visibleSketches=allSketches.filter(s=>{
+    const rOk=sketchesRatingFilter==='all'?true:sketchesRatingFilter==='nsfw'?s.rating==='NSFW':s.rating==='SFW';
+    return rOk;
+  });
+  const grid=document.getElementById('sketches-grid');
+  if(!visibleSketches.length){
+    grid.innerHTML='<div class="state-msg"><h3>No sketches yet</h3><p>Upload images to images/sketches/sfw/ or images/sketches/nsfw/ and add entries to sketches.json.</p></div>';
+    return;
+  }
+  grid.innerHTML='';
+  visibleSketches.forEach((sketch,idx)=>{
+    const isNSFW=sketch.rating==='NSFW',blurred=isNSFW&&!nsfwUnlocked;
+    const el=document.createElement('div');el.className='sketch-item';el.style.animationDelay=Math.min(idx*0.03,0.6)+'s';
+    el.innerHTML='<div class="'+(blurred?'nsfw-blur':'')+'"><img src="'+sketch.src+'" alt="'+sketch.title+'" loading="lazy"></div>'+(blurred?'<div class="nsfw-ov" onclick="showGate()"><span class="nsfw-badge">NSFW</span><p>Unlock to view</p></div>':'')+'<div class="sketch-info"><span class="sketch-artist">by '+sketch.artist+'</span><span class="sketch-rating '+(isNSFW?'sr-nsfw':'sr-sfw')+'">'+sketch.rating+'</span></div>';
+    if(!blurred)el.addEventListener('click',()=>openLightbox(idx,'sketches'));
+    grid.appendChild(el);
+  });
+}
+
 function renderRefs(){
   visibleRefs=allRefs.filter(r=>{
     const rOk=refsRatingFilter==='all'?true:refsRatingFilter==='nsfw'?r.rating==='NSFW':r.rating==='SFW';
@@ -374,54 +325,43 @@ function renderRefs(){
   if(!visibleRefs.length){grid.innerHTML='<div class="state-msg"><h3>No refs found</h3><p>Try a different filter.</p></div>';return;}
   grid.innerHTML='';
   visibleRefs.forEach((ref,idx)=>{
-    const isNSFW=ref.rating==='NSFW';
-    const blurred=isNSFW&&!nsfwUnlocked;
-    const el=document.createElement('div');
-    el.className='ref-card';
-    el.style.animationDelay=Math.min(idx*0.06,0.6)+'s';
-    el.innerHTML=
-      '<div style="position:relative;overflow:hidden;">'+
-        '<div class="'+(blurred?'nsfw-blur':'')+'"><img src="'+ref.src+'" alt="'+ref.title+'" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div>'+
-        (blurred?'<div class="nsfw-ov" onclick="showGate()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;"><span class="nsfw-badge">NSFW</span><p style="font-size:.7rem;color:rgba(255,255,255,.75);">Unlock to view</p></div>':'')+
-      '</div>'+
-      '<div class="ref-info"><div class="ref-title">'+ref.title+'</div>'+
-      '<div class="ref-meta"><span>by '+ref.artist+(ref.version?' &middot; '+ref.version:'')+'</span>'+
-      '<span class="ref-rating '+(isNSFW?'ref-nsfw':'ref-sfw')+'">'+ref.rating+'</span></div></div>';
+    const isNSFW=ref.rating==='NSFW',blurred=isNSFW&&!nsfwUnlocked;
+    const el=document.createElement('div');el.className='ref-card';el.style.animationDelay=Math.min(idx*0.06,0.6)+'s';
+    el.innerHTML='<div style="position:relative;overflow:hidden;"><div class="'+(blurred?'nsfw-blur':'')+'"><img src="'+ref.src+'" alt="'+ref.title+'" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"></div>'+(blurred?'<div class="nsfw-ov" onclick="showGate()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;"><span class="nsfw-badge">NSFW</span><p style="font-size:.7rem;color:rgba(255,255,255,.75);">Unlock to view</p></div>':'')+'</div><div class="ref-info"><div class="ref-title">'+ref.title+'</div><div class="ref-meta"><span>by '+ref.artist+(ref.version?' · '+ref.version:'')+'</span><span class="ref-rating '+(isNSFW?'ref-nsfw':'ref-sfw')+'">'+ref.rating+'</span></div></div>';
     if(!blurred)el.addEventListener('click',()=>openLightbox(idx,'refs'));
     grid.appendChild(el);
   });
 }
 
-// ── Rating filters ──
 function setRating(r,btn){
   if(r==='nsfw'&&!nsfwUnlocked){showGate();return;}
   ratingFilter=r;
   document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderGallery();
+  btn.classList.add('active');renderGallery();
+}
+function setSketchesRating(r,btn){
+  if(r==='nsfw'&&!nsfwUnlocked){showGate();return;}
+  sketchesRatingFilter=r;
+  document.querySelectorAll('#sketches-rbar .rbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');renderSketches();
 }
 function setRefsRating(r,btn){
   if(r==='nsfw'&&!nsfwUnlocked){showGate();return;}
   refsRatingFilter=r;
   document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderRefs();
+  btn.classList.add('active');renderRefs();
 }
 
-// ── Type filter ──
 document.querySelectorAll('.type-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     typeFilter=btn.dataset.type;
     document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    artistFilter='all';
+    btn.classList.add('active');artistFilter='all';
     document.querySelectorAll('.sidebar-btn').forEach(b=>b.classList.remove('active'));
-    document.querySelector('.sidebar-btn')?.classList.add('active');
-    renderGallery();
+    document.querySelector('.sidebar-btn')?.classList.add('active');renderGallery();
   });
 });
 
-// ── Artist sidebar ──
 function buildSidebar(){
   const artists=[...new Set(allItems.map(i=>i.artist))].sort();
   const list=document.getElementById('artist-list');list.innerHTML='';
@@ -433,71 +373,77 @@ function buildSidebar(){
 }
 function setArtist(a,btn){artistFilter=a;document.querySelectorAll('.sidebar-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderGallery();}
 
-// ── NSFW toggle ──
 function toggleNSFW(){
   if(!nsfwUnlocked){showGate();return;}
-  nsfwUnlocked=!nsfwUnlocked;
-  syncToggle();
+  nsfwUnlocked=!nsfwUnlocked;syncToggle();
   if(!nsfwUnlocked){
     if(ratingFilter==='nsfw'){ratingFilter='sfw';document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#page-gallery [data-rating="sfw"]').classList.add('active');}
+    if(sketchesRatingFilter==='nsfw'){sketchesRatingFilter='sfw';document.querySelectorAll('#sketches-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#sketches-rbar [data-rating="sfw"]').classList.add('active');}
     if(refsRatingFilter==='nsfw'){refsRatingFilter='sfw';document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#refs-rbar [data-rating="sfw"]').classList.add('active');}
   }
-  renderGallery();renderRefs();
+  renderGallery();renderSketches();renderRefs();
 }
 function showGate(){document.getElementById('age-gate').classList.remove('hidden');}
 function unlockNSFW(){
   nsfwUnlocked=true;
   document.getElementById('age-gate').classList.add('hidden');
-  ['nsfw-rbtn','all-rbtn','refs-nsfw-rbtn','refs-all-rbtn'].forEach(id=>{
+  ['nsfw-rbtn','all-rbtn','sketches-nsfw-rbtn','sketches-all-rbtn','refs-nsfw-rbtn','refs-all-rbtn'].forEach(id=>{
     const el=document.getElementById(id);
     if(el){el.style.opacity='';el.style.cursor='';if(id.includes('all'))el.style.display='';}
   });
-  syncToggle();renderGallery();renderRefs();
+  syncToggle();renderGallery();renderSketches();renderRefs();
 }
 function dismissGate(){
   document.getElementById('age-gate').classList.add('hidden');
-  ratingFilter='sfw';refsRatingFilter='sfw';
-  document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));
-  document.querySelector('#page-gallery [data-rating="sfw"]').classList.add('active');
-  document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));
-  document.querySelector('#refs-rbar [data-rating="sfw"]').classList.add('active');
+  ratingFilter='sfw';sketchesRatingFilter='sfw';refsRatingFilter='sfw';
+  ['#page-gallery [data-rating="sfw"]','#sketches-rbar [data-rating="sfw"]','#refs-rbar [data-rating="sfw"]'].forEach(sel=>{
+    const bar=sel.split(' ')[0].replace('#page-gallery','#page-gallery').replace('#','');
+    document.querySelectorAll('#'+bar+' .rbtn').forEach(b=>b.classList.remove('active'));
+    document.querySelector(sel)?.classList.add('active');
+  });
 }
 function syncToggle(){
   document.getElementById('nsfw-tog').classList.toggle('on',nsfwUnlocked);
   document.getElementById('nsfw-lbl').classList.toggle('on',nsfwUnlocked);
 }
 
-// ── Lightbox ──
 function openLightbox(idx,mode){
-  lbIdx=idx;lbMode=mode;
-  showLb();
-  document.querySelector('.lb-nav').style.display=mode==='refs'?'none':'flex';
+  lbIdx=idx;lbMode=mode;showLb();
+  document.querySelector('.lb-nav').style.display=(mode==='refs')?'none':'flex';
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow='hidden';
 }
 function showLb(){
-  const item=lbMode==='refs'?visibleRefs[lbIdx]:visible[lbIdx];
-  if(!item)return;
+  const arr=lbMode==='refs'?visibleRefs:lbMode==='sketches'?visibleSketches:visible;
+  const item=arr[lbIdx];if(!item)return;
   document.getElementById('lb-img').src=item.src;
   document.getElementById('lb-title').textContent=item.title;
   const badge=item.rating==='NSFW'?'<span class="lb-rbadge lb-nsfw">NSFW</span>':'<span class="lb-rbadge lb-sfw">SFW</span>';
-  const sub=lbMode==='refs'?'by '+item.artist+(item.version?' · '+item.version:''):('by '+item.artist+' · '+item.type);
+  let sub='by '+item.artist;
+  if(lbMode==='gallery')sub+=' · '+item.type;
+  if(lbMode==='refs'&&item.version)sub+=' · '+item.version;
   document.getElementById('lb-sub').innerHTML=sub+badge;
 }
 function closeLb(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
 document.getElementById('lb-close').onclick=closeLb;
-document.getElementById('lb-prev').onclick=()=>{lbIdx=(lbIdx-1+visible.length)%visible.length;showLb();};
-document.getElementById('lb-next').onclick=()=>{lbIdx=(lbIdx+1)%visible.length;showLb();};
+document.getElementById('lb-prev').onclick=()=>{
+  const arr=lbMode==='sketches'?visibleSketches:visible;
+  lbIdx=(lbIdx-1+arr.length)%arr.length;showLb();
+};
+document.getElementById('lb-next').onclick=()=>{
+  const arr=lbMode==='sketches'?visibleSketches:visible;
+  lbIdx=(lbIdx+1)%arr.length;showLb();
+};
 document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===document.getElementById('lightbox'))closeLb();});
 document.addEventListener('keydown',e=>{
   if(!document.getElementById('lightbox').classList.contains('open'))return;
   if(e.key==='Escape')closeLb();
-  if(lbMode==='gallery'){
-    if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+visible.length)%visible.length;showLb();}
-    if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%visible.length;showLb();}
+  if(lbMode!=='refs'){
+    const arr=lbMode==='sketches'?visibleSketches:visible;
+    if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+arr.length)%arr.length;showLb();}
+    if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%arr.length;showLb();}
   }
 });
-
 init();
 </script>
 </body>

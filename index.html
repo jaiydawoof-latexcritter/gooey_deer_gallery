@@ -214,7 +214,7 @@ nav{padding:0 10px;}.nav-logo{font-size:.9rem;margin-right:8px;}.nav-tab{font-si
 <button class="filter-btn type-btn" data-type="Other">Other</button>
 </div>
 <div class="rbar"><span class="rlbl">Rating</span>
-<button class="rbtn active" data-rating="sfw" onclick="setRating('sfw',this)">SFW</button>
+<button class="rbtn active" data-rating="sfw" id="g-sfw-btn" onclick="setRating('sfw',this)">SFW</button>
 <button class="rbtn nsfw-rbtn" data-rating="nsfw" id="nsfw-rbtn" onclick="setRating('nsfw',this)" style="opacity:.4;cursor:not-allowed">NSFW</button>
 <button class="rbtn" data-rating="all" id="all-rbtn" onclick="setRating('all',this)" style="display:none">All</button>
 </div>
@@ -227,7 +227,7 @@ nav{padding:0 10px;}.nav-logo{font-size:.9rem;margin-right:8px;}.nav-tab{font-si
 <div class="page" id="page-sketches">
 <div class="section-hero"><h1>Sketch <span>Collection</span></h1><p>Rough sketches and line art from the creative process.</p></div>
 <div class="rbar" id="sketches-rbar"><span class="rlbl">Rating</span>
-<button class="rbtn active" data-rating="sfw" onclick="setSketchesRating('sfw',this)">SFW</button>
+<button class="rbtn active" data-rating="sfw" id="sk-sfw-btn" onclick="setSketchesRating('sfw',this)">SFW</button>
 <button class="rbtn nsfw-rbtn" data-rating="nsfw" id="sketches-nsfw-rbtn" onclick="setSketchesRating('nsfw',this)" style="opacity:.4;cursor:not-allowed">NSFW</button>
 <button class="rbtn" data-rating="all" id="sketches-all-rbtn" onclick="setSketchesRating('all',this)" style="display:none">All</button>
 </div>
@@ -238,7 +238,7 @@ nav{padding:0 10px;}.nav-logo{font-size:.9rem;margin-right:8px;}.nav-tab{font-si
 <div class="page" id="page-refs">
 <div class="section-hero"><h1>Reference <span>Sheets</span></h1><p>Official character references for Jaiy — available for commissioned artists.</p></div>
 <div class="rbar" id="refs-rbar"><span class="rlbl">Rating</span>
-<button class="rbtn active" data-rating="sfw" onclick="setRefsRating('sfw',this)">SFW</button>
+<button class="rbtn active" data-rating="sfw" id="ref-sfw-btn" onclick="setRefsRating('sfw',this)">SFW</button>
 <button class="rbtn nsfw-rbtn" data-rating="nsfw" id="refs-nsfw-rbtn" onclick="setRefsRating('nsfw',this)" style="opacity:.4;cursor:not-allowed">NSFW</button>
 <button class="rbtn" data-rating="all" id="refs-all-rbtn" onclick="setRefsRating('all',this)" style="display:none">All</button>
 </div>
@@ -258,23 +258,18 @@ nav{padding:0 10px;}.nav-logo{font-size:.9rem;margin-right:8px;}.nav-tab{font-si
 <div class="interest-tags">
 <span class="tag hi">Latex</span><span class="tag hi">Pooltoy</span><span class="tag hi">Goo / Melting</span><span class="tag hi">Transformation</span>
 <span class="tag">Deer</span><span class="tag">Inflation</span><span class="tag">Bisexual</span><span class="tag">Furry Fandom</span>
-</div>
-</div>
+</div></div>
 <div class="about-links">
 <a class="social-link" href="https://twitter.com/jaiydawoof" target="_blank" rel="noopener">
 <div class="social-icon si-twitter">&#120143;</div>
-<div class="social-info"><div class="social-name">Twitter / X</div><div class="social-handle">@jaiydawoof</div></div>
-</a>
+<div class="social-info"><div class="social-name">Twitter / X</div><div class="social-handle">@jaiydawoof</div></div></a>
 <a class="social-link" href="https://bsky.app/profile/gooeydeer.com" target="_blank" rel="noopener">
 <div class="social-icon si-bluesky">&#x1F98B;</div>
-<div class="social-info"><div class="social-name">Bluesky</div><div class="social-handle">@gooeydeer.com</div></div>
-</a>
+<div class="social-info"><div class="social-name">Bluesky</div><div class="social-handle">@gooeydeer.com</div></div></a>
 <a class="social-link" href="https://www.furaffinity.net/user/jaiydawoof" target="_blank" rel="noopener">
 <div class="social-icon si-fa">&#x1F43E;</div>
-<div class="social-info"><div class="social-name">Fur Affinity</div><div class="social-handle">jaiydawoof</div></div>
-</a>
-</div>
-</div></div>
+<div class="social-info"><div class="social-name">Fur Affinity</div><div class="social-handle">jaiydawoof</div></div></a>
+</div></div></div>
 
 <!-- CONTACT -->
 <div class="page" id="page-contact">
@@ -285,14 +280,11 @@ nav{padding:0 10px;}.nav-logo{font-size:.9rem;margin-right:8px;}.nav-tab{font-si
 </div>
 <div class="contact-card">
 <div id="contact-form">
-<p class="contact-intro">All messages welcome — whether you're an artist, a fan, or just curious. I'll respond when I can!</p>
+<p class="contact-intro">All messages welcome — artist, fan, or just curious. I'll respond when I can!</p>
 <div class="form-group"><label>Your Name</label><input type="text" id="cf-name" placeholder="What should I call you?"></div>
 <div class="form-group"><label>Email (optional)</label><input type="email" id="cf-email" placeholder="If you'd like a reply"></div>
 <div class="form-group"><label>Subject</label>
-<select id="cf-subject">
-<option>General comment</option><option>Question about the gallery</option>
-<option>Commission inquiry</option><option>Artist reaching out</option><option>Other</option>
-</select></div>
+<select id="cf-subject"><option>General comment</option><option>Question about the gallery</option><option>Commission inquiry</option><option>Artist reaching out</option><option>Other</option></select></div>
 <div class="form-group"><label>Message</label><textarea id="cf-message" placeholder="What's on your mind?"></textarea></div>
 <button class="btn-submit" onclick="submitContact()">Send Message</button>
 </div>
@@ -301,9 +293,7 @@ nav{padding:0 10px;}.nav-logo{font-size:.9rem;margin-right:8px;}.nav-tab{font-si
 <h3>Message received!</h3>
 <p>Thanks for reaching out. I'll get back to you if you left an email address.</p>
 <button onclick="resetContact()" style="margin-top:20px;background:none;border:1px solid var(--border);color:var(--muted);padding:8px 20px;border-radius:50px;cursor:pointer;font-family:'DM Sans',sans-serif;">Send another</button>
-</div>
-</div>
-</div></div>
+</div></div></div></div>
 
 <div id="lightbox"><div class="lb-inner">
 <button class="lb-close" id="lb-close">&#x2715;</button>
@@ -412,25 +402,42 @@ function toggleNSFW(){
   if(!nsfwUnlocked){showGate();return;}
   nsfwUnlocked=!nsfwUnlocked;syncToggle();
   if(!nsfwUnlocked){
-    if(ratingFilter==='nsfw'){ratingFilter='sfw';document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#page-gallery [data-rating="sfw"]').classList.add('active');}
-    if(sketchesRatingFilter==='nsfw'){sketchesRatingFilter='sfw';document.querySelectorAll('#sketches-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#sketches-rbar [data-rating="sfw"]').classList.add('active');}
-    if(refsRatingFilter==='nsfw'){refsRatingFilter='sfw';document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#refs-rbar [data-rating="sfw"]').classList.add('active');}
+    ratingFilter='sfw';sketchesRatingFilter='sfw';refsRatingFilter='sfw';
+    document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));document.getElementById('g-sfw-btn').classList.add('active');
+    document.querySelectorAll('#sketches-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.getElementById('sk-sfw-btn').classList.add('active');
+    document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.getElementById('ref-sfw-btn').classList.add('active');
   }
   renderGallery();renderSketches();renderRefs();
 }
+
 function showGate(){document.getElementById('age-gate').classList.remove('hidden');}
+
 function unlockNSFW(){
-  nsfwUnlocked=true;document.getElementById('age-gate').classList.add('hidden');
-  ['nsfw-rbtn','all-rbtn','sketches-nsfw-rbtn','sketches-all-rbtn','refs-nsfw-rbtn','refs-all-rbtn'].forEach(id=>{const el=document.getElementById(id);if(el){el.style.opacity='';el.style.cursor='';if(id.includes('all'))el.style.display='';}});
+  nsfwUnlocked=true;
+  document.getElementById('age-gate').classList.add('hidden');
+  // Enable NSFW and All buttons on all pages
+  ['nsfw-rbtn','all-rbtn','sketches-nsfw-rbtn','sketches-all-rbtn','refs-nsfw-rbtn','refs-all-rbtn'].forEach(id=>{
+    const el=document.getElementById(id);if(el){el.style.opacity='';el.style.cursor='';if(id.includes('all'))el.style.display='';}
+  });
+  // ── Default to ALL rating so NSFW content is immediately visible ──
+  ratingFilter='all';sketchesRatingFilter='all';refsRatingFilter='all';
+  document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('all-rbtn').classList.add('active');
+  document.querySelectorAll('#sketches-rbar .rbtn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sketches-all-rbtn').classList.add('active');
+  document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('refs-all-rbtn').classList.add('active');
   syncToggle();renderGallery();renderSketches();renderRefs();
 }
+
 function dismissGate(){
   document.getElementById('age-gate').classList.add('hidden');
   ratingFilter='sfw';sketchesRatingFilter='sfw';refsRatingFilter='sfw';
-  document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#page-gallery [data-rating="sfw"]').classList.add('active');
-  document.querySelectorAll('#sketches-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#sketches-rbar [data-rating="sfw"]').classList.add('active');
-  document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.querySelector('#refs-rbar [data-rating="sfw"]').classList.add('active');
+  document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));document.getElementById('g-sfw-btn').classList.add('active');
+  document.querySelectorAll('#sketches-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.getElementById('sk-sfw-btn').classList.add('active');
+  document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));document.getElementById('ref-sfw-btn').classList.add('active');
 }
+
 function syncToggle(){document.getElementById('nsfw-tog').classList.toggle('on',nsfwUnlocked);document.getElementById('nsfw-lbl').classList.toggle('on',nsfwUnlocked);}
 
 function submitContact(){

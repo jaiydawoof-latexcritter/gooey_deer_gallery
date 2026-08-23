@@ -211,12 +211,19 @@ nav{padding:0 10px;}.nav-logo{font-size:.9rem;margin-right:8px;}.nav-tab{font-si
 <button class="filter-btn type-btn" data-type="Normal">Normal</button>
 <button class="filter-btn type-btn" data-type="Fursuit">Fursuit</button>
 <button class="filter-btn type-btn" data-type="Latex">Latex</button>
+<button class="filter-btn type-btn" data-type="Animation">Animation</button>
 <button class="filter-btn type-btn" data-type="Other">Other</button>
 </div>
 <div class="rbar"><span class="rlbl">Rating</span>
 <button class="rbtn active" data-rating="sfw" id="g-sfw-btn" onclick="setRating('sfw',this)">SFW</button>
+<button class="rbtn" data-rating="suggestive" id="sug-rbtn" onclick="setRating('suggestive',this)">Suggestive</button>
 <button class="rbtn nsfw-rbtn" data-rating="nsfw" id="nsfw-rbtn" onclick="setRating('nsfw',this)" style="opacity:.4;cursor:not-allowed">NSFW</button>
 <button class="rbtn" data-rating="all" id="all-rbtn" onclick="setRating('all',this)" style="display:none">All</button>
+</div>
+<div class="rbar"><span class="rlbl">Character</span>
+<button class="rbtn active" id="g-char-all" onclick="setCharacter('all',this)">All</button>
+<button class="rbtn" id="g-char-jaiy" onclick="setCharacter('Jaiy',this)">Jaiy</button>
+<button class="rbtn" id="g-char-tok" onclick="setCharacter('Tokoloshe',this)">Tokoloshe</button>
 </div>
 <div class="gallery-layout">
 <aside class="sidebar"><div class="sidebar-title">Artists</div><div id="artist-list"></div></aside>
@@ -304,7 +311,7 @@ nav{padding:0 10px;}.nav-logo{font-size:.9rem;margin-right:8px;}.nav-tab{font-si
 
 <script>
 let allItems=[],allSketches=[],allRefs=[],visible=[],visibleSketches=[],visibleRefs=[],lbIdx=0,lbMode='gallery';
-let typeFilter='all',ratingFilter='sfw',sketchesRatingFilter='sfw',refsRatingFilter='sfw',artistFilter='all',nsfwUnlocked=false;
+let typeFilter='all',ratingFilter='sfw',sketchesRatingFilter='sfw',refsRatingFilter='sfw',artistFilter='all',characterFilter='all',nsfwUnlocked=false;
 
 async function init(){
   try{
@@ -340,8 +347,13 @@ function renderGallery(){
   visible=allItems.filter(i=>{
     const tOk=typeFilter==='all'||i.type===typeFilter;
     const aOk=artistFilter==='all'||i.artist===artistFilter;
-    const rOk=ratingFilter==='all'?true:ratingFilter==='nsfw'?i.rating==='NSFW':i.rating==='SFW';
-    return tOk&&aOk&&rOk;
+    const chars=Array.isArray(i.characters)?i.characters:[];
+    const cOk=characterFilter==='all'||chars.includes(characterFilter);
+    const rOk=ratingFilter==='all'?true:
+               ratingFilter==='nsfw'?i.rating==='NSFW':
+               ratingFilter==='suggestive'?(i.rating==='SFW'||i.rating==='Suggestive'):
+               i.rating==='SFW';
+    return tOk&&aOk&&cOk&&rOk;
   });
   document.getElementById('nav-count').textContent=visible.length+' pieces';
   const grid=document.getElementById('gallery-grid');
@@ -385,6 +397,7 @@ function renderRefs(){
 }
 
 function setRating(r,btn){if(r==='nsfw'&&!nsfwUnlocked){showGate();return;}ratingFilter=r;document.querySelectorAll('#page-gallery .rbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderGallery();}
+function setCharacter(c,btn){characterFilter=c;document.querySelectorAll('#page-gallery .rbtn[id^="g-char"]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderGallery();}
 function setSketchesRating(r,btn){if(r==='nsfw'&&!nsfwUnlocked){showGate();return;}sketchesRatingFilter=r;document.querySelectorAll('#sketches-rbar .rbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderSketches();}
 function setRefsRating(r,btn){if(r==='nsfw'&&!nsfwUnlocked){showGate();return;}refsRatingFilter=r;document.querySelectorAll('#refs-rbar .rbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderRefs();}
 

@@ -26,11 +26,24 @@ let nsfwUnlocked=false, nsfwVisible=false;
 let galleryTypeFilter='all', galleryRatingFilter='all', refsRatingFilter='all', galleryArtistFilter='all';
 let lightboxIndex=0, visibleItems=[];
 
-// ══ FIX 1: ratingVisible now respects BOTH nsfwUnlocked AND nsfwVisible ══
+// ratingVisible: can this rating be shown given current unlock state?
 function ratingVisible(rating) {
-  const isRestricted = rating === 'NSFW' || rating === 'Suggestive';
-  if (!isRestricted) return true;
+  if (rating === 'SFW') return true;
   return nsfwUnlocked && nsfwVisible;
+}
+
+// ratingMatchesFilter: does this item's rating match the active rating filter?
+// Hierarchy: SFW < Suggestive < NSFW
+// 'SFW Only' → only SFW
+// 'Suggestive' → SFW + Suggestive
+// 'NSFW' → all three
+// 'all' → all (subject to ratingVisible)
+function ratingMatchesFilter(itemRating, filter) {
+  if (filter === 'all') return true;
+  if (filter === 'SFW') return itemRating === 'SFW';
+  if (filter === 'Suggestive') return itemRating === 'SFW' || itemRating === 'Suggestive';
+  if (filter === 'NSFW') return true; // all ratings
+  return true;
 }
 
 function badgeClass(r) {
@@ -41,27 +54,24 @@ function badgeClass(r) {
 
 // ══ FIX 2: Update rating filter button visibility based on NSFW lock state ══
 function syncRatingButtons() {
-  const restrictedGallery = ['g-r-sug', 'g-r-nsfw'];
-  const restrictedRefs    = ['r-r-sug', 'r-r-nsfw'];
-  [...restrictedGallery, ...restrictedRefs].forEach(id => {
+  // Suggestive and NSFW buttons only visible when unlocked
+  ['g-r-sug', 'g-r-nsfw', 'r-r-sug', 'r-r-nsfw'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     el.style.display = (nsfwUnlocked && nsfwVisible) ? '' : 'none';
   });
 
-  // FIX 3: Reset restricted filters if NSFW is toggled off
+  // Reset to 'all' if current filter is now hidden
   if (!(nsfwUnlocked && nsfwVisible)) {
     if (galleryRatingFilter === 'NSFW' || galleryRatingFilter === 'Suggestive') {
       galleryRatingFilter = 'all';
-      const allBtn = document.getElementById('g-r-all');
       document.querySelectorAll('#page-gallery .rating-filter-btn').forEach(b => b.classList.remove('active'));
-      if (allBtn) allBtn.classList.add('active');
+      document.getElementById('g-r-all')?.classList.add('active');
     }
     if (refsRatingFilter === 'NSFW' || refsRatingFilter === 'Suggestive') {
       refsRatingFilter = 'all';
-      const allBtn = document.getElementById('r-r-all');
       document.querySelectorAll('#page-refs .rating-filter-btn').forEach(b => b.classList.remove('active'));
-      if (allBtn) allBtn.classList.add('active');
+      document.getElementById('r-r-all')?.classList.add('active');
     }
   }
 }
@@ -97,7 +107,7 @@ function renderGallery() {
   grid.innerHTML = '';
   visibleItems = allGallery.filter(item => {
     const typeOk   = galleryTypeFilter === 'all' || item.type === galleryTypeFilter;
-    const ratingOk = galleryRatingFilter === 'all' || item.rating === galleryRatingFilter;
+    const ratingOk = ratingMatchesFilter(item.rating, galleryRatingFilter);
     const artistOk = galleryArtistFilter === 'all' || item.artist === galleryArtistFilter;
     return typeOk && ratingOk && artistOk && ratingVisible(item.rating);
   });
@@ -132,7 +142,7 @@ function renderRefs() {
   const grid = document.getElementById('refs-grid');
   grid.innerHTML = '';
   const filtered = allRefs.filter(r => {
-    const ratingOk = refsRatingFilter === 'all' || r.rating === refsRatingFilter;
+    const ratingOk = ratingMatchesFilter(r.rating, refsRatingFilter);
     return ratingOk && ratingVisible(r.rating);
   });
 

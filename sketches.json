@@ -199,5 +199,28 @@
       "Jaiy",
       "Tokoloshe"
     ]
+  },
+  {
+    "id": "sketch_skulldog_001",
+    "src": "https://raw.githubusercontent.com/jaiydawoof-latexcritter/gooey_deer_gallery/main/images/sketches/sketch_skulldog_001.jpg",
+    "title": "Deflated by Pocket Sketch",
+    "artist": "Skulldog",
+    "type": "Pooltoy",
+    "rating": "SFW",
+    "characters": [
+      "Jaiy"
+    ]
+  },
+  {
+    "id": "sketch_vanillayote_001",
+    "src": "https://raw.githubusercontent.com/jaiydawoof-latexcritter/gooey_deer_gallery/main/images/sketches/sketch_vanillayote_001.jpg",
+    "title": "Pooltoy Tokoloshe Sketch",
+    "artist": "VanillaYote",
+    "type": "Pooltoy",
+    "rating": "SFW",
+    "characters": [
+      "Jaiy",
+      "Tokoloshe"
+    ]
   }
 ]

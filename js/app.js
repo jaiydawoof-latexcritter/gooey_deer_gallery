@@ -289,10 +289,10 @@ function toggleNSFW() {
 
 function openLightbox(idx) {
   lightboxIndex = idx;
-  showLightboxItem();
   document.querySelector('.lb-nav').style.display = 'flex';
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
+  showLightboxItem(); // Called AFTER lightbox is visible so video can autoplay
 }
 
 function showLightboxItem() {

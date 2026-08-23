@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "id": "sketch_neltruin_001",
+    "src": "images/gallery/Neltruin_gooey_hunger_Jaiy_Nynn_SKETCH.png",
+    "title": "Gooey Hunger Sketch",
+    "artist": "Neltruin",
+    "rating": "SFW"
+  },
+  {
+    "id": "sketch_neltruin_002",
+    "src": "images/gallery/Neltruin_Jaiy_metal_jaw_sketch.png",
+    "title": "Jaiy Metal Jaw Sketch",
+    "artist": "Neltruin",
+    "rating": "SFW"
+  },
+  {
+    "id": "sketch_neltruin_003",
+    "src": "images/gallery/Neltruin_Jaiy_head_Sketches.png",
+    "title": "Jaiy Head Sketches",
+    "artist": "Neltruin",
+    "rating": "SFW"
+  },
+  {
+    "id": "sketch_neltruin_004",
+    "src": "images/gallery/Neltruing_Jaiy_Encasing_Pocket_gooey_NSFW_Sketch.png",
+    "title": "Jaiy Encasing Pocket Sketch",
+    "artist": "Neltruin",
+    "rating": "NSFW"
+  }
+]

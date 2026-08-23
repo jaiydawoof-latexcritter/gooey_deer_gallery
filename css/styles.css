@@ -393,8 +393,28 @@
   .lb-close { position: absolute; top: -48px; right: 0; background: var(--surface); border: 1px solid var(--border); color: var(--text); width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
   .lb-close:hover { border-color: var(--accent); color: var(--accent); }
   .lb-nav { display: flex; gap: 12px; }
-  .lb-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 20px; border-radius: 50px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; transition: all var(--transition); }
+  .lb-btn {
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    padding: 8px 20px; border-radius: 50px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    transition: all var(--transition);
+  }
   .lb-btn:hover { border-color: var(--accent); color: var(--accent); }
+  /* Pin Prev/Next to fixed positions so they never shift with image size */
+  .lb-prev, .lb-next {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001;
+    padding: 12px 18px;
+    font-size: 1rem;
+  }
+  .lb-prev { left: 16px; }
+  .lb-next { right: 16px; }
+  @media (max-width: 768px) {
+    .lb-prev { left: 4px; padding: 10px 12px; }
+    .lb-next { right: 4px; padding: 10px 12px; }
+  }
 
   /* ═══════════════════════════════════════
      ABOUT

@@ -123,9 +123,14 @@ function renderGallery() {
     const el = document.createElement('div');
     el.className = `gallery-item${restricted ? '' : ' nsfw-unlocked'}`;
     el.style.animationDelay = `${idx * 0.04}s`;
+    const isVideo = item.src && item.src.toLowerCase().endsWith('.mp4');
+    const mediaEl = isVideo
+      ? `<video src="${item.src}" autoplay loop muted playsinline preload="metadata" style="width:100%;display:block;"></video>`
+      : `<img src="${item.src}" alt="${item.title}" loading="lazy">`;
     el.innerHTML = `
       <div class="${restricted ? 'nsfw-blur' : ''}">
-        <img src="${item.src}" alt="${item.title}" loading="lazy">
+        ${mediaEl}
+        ${isVideo ? '<div class="anim-badge">▶ Animation</div>' : ''}
       </div>
       ${restricted ? `<div class="nsfw-cover"><span>${item.rating.toUpperCase()}</span><p>Enable NSFW to view</p></div>` : ''}
       <div class="item-info">
@@ -289,13 +294,20 @@ function openLightbox(idx) {
 function showLightboxItem() {
   const item = visibleItems[lightboxIndex];
   if (!item) return;
-  document.getElementById('lb-img').src = item.src;
+  const wrap = document.querySelector('.lb-img-wrap');
+  const isVideo = item.src && item.src.toLowerCase().endsWith('.mp4');
+  if (isVideo) {
+    wrap.innerHTML = `<video src="${item.src}" autoplay loop muted playsinline controls style="max-width:100%;max-height:70vh;display:block;"></video>`;
+  } else {
+    wrap.innerHTML = `<img id="lb-img" src="${item.src}" alt="${item.title}" style="max-width:100%;max-height:70vh;object-fit:contain;display:block;">`;
+  }
   document.getElementById('lb-title').textContent = item.title;
   document.getElementById('lb-sub').textContent = `by ${item.artist} · ${item.type} · ${item.rating}`;
 }
 
 function openRefLightbox(ref) {
-  document.getElementById('lb-img').src = ref.src;
+  const wrap = document.querySelector('.lb-img-wrap');
+  wrap.innerHTML = `<img id="lb-img" src="${ref.src}" alt="${ref.title}" style="max-width:100%;max-height:70vh;object-fit:contain;display:block;">`;
   document.getElementById('lb-title').textContent = ref.title;
   document.getElementById('lb-sub').textContent = `by ${ref.artist} · ${ref.version} · ${ref.rating}`;
   document.querySelector('.lb-nav').style.display = 'none';

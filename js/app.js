@@ -26,9 +26,9 @@ let nsfwUnlocked=false, nsfwVisible=false;
 let galleryTypeFilter='all', galleryRatingFilter='all', refsRatingFilter='all', galleryArtistFilter='all', galleryCharacterFilter='all';
 let lightboxIndex=0, visibleItems=[];
 
-// ratingVisible: can this rating be shown given current unlock state?
+// ratingVisible: SFW and Suggestive always visible; NSFW requires age gate
 function ratingVisible(rating) {
-  if (rating === 'SFW') return true;
+  if (rating === 'SFW' || rating === 'Suggestive') return true;
   return nsfwUnlocked && nsfwVisible;
 }
 
@@ -54,21 +54,31 @@ function badgeClass(r) {
 
 // ══ FIX 2: Update rating filter button visibility based on NSFW lock state ══
 function syncRatingButtons() {
-  // Suggestive and NSFW buttons only visible when unlocked
-  ['g-r-sug', 'g-r-nsfw', 'r-r-sug', 'r-r-nsfw'].forEach(id => {
+  // Only NSFW buttons hidden until age gate passed — Suggestive always visible
+  ['g-r-nsfw', 'r-r-nsfw'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     el.style.display = (nsfwUnlocked && nsfwVisible) ? '' : 'none';
   });
+  // Suggestive always shown
+  ['g-r-sug', 'r-r-sug'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = '';
+  });
+  // Character filter buttons always shown
+  ['g-c-all', 'g-c-jaiy', 'g-c-tok'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = '';
+  });
 
-  // Reset to 'all' if current filter is now hidden
+  // Reset to 'all' if NSFW filter is active but now hidden
   if (!(nsfwUnlocked && nsfwVisible)) {
-    if (galleryRatingFilter === 'NSFW' || galleryRatingFilter === 'Suggestive') {
+    if (galleryRatingFilter === 'NSFW') {
       galleryRatingFilter = 'all';
       document.querySelectorAll('#page-gallery .rating-filter-btn').forEach(b => b.classList.remove('active'));
       document.getElementById('g-r-all')?.classList.add('active');
     }
-    if (refsRatingFilter === 'NSFW' || refsRatingFilter === 'Suggestive') {
+    if (refsRatingFilter === 'NSFW') {
       refsRatingFilter = 'all';
       document.querySelectorAll('#page-refs .rating-filter-btn').forEach(b => b.classList.remove('active'));
       document.getElementById('r-r-all')?.classList.add('active');
@@ -237,7 +247,7 @@ function filterGalleryType(type, btn) {
 }
 
 function filterGalleryRating(rating, btn) {
-  if ((rating === 'NSFW' || rating === 'Suggestive') && !(nsfwUnlocked && nsfwVisible)) return;
+  if (rating === 'NSFW' && !(nsfwUnlocked && nsfwVisible)) return;
   galleryRatingFilter = rating;
   document.querySelectorAll('#page-gallery .rating-filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');

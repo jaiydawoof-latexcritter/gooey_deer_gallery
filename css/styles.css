@@ -500,19 +500,3 @@
       .hero-banner-img { min-width: 40px; }
 }
 
-  /* ═══════════════════════════════════════
-     FILTER ROWS WRAPPER
-  ═══════════════════════════════════════ */
-  .filters-wrap {
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 8px;
-  }
-  .filters-wrap .filters {
-    padding-bottom: 10px;
-    border-bottom: none;
-  }
-  .filters-wrap .filters:not(:last-child) {
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(58,63,82,0.4);
-  }
-

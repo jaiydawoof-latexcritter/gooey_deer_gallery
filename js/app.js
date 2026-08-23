@@ -23,7 +23,7 @@ async function fetchFromDrive(type) {
 
 let allGallery=[], allRefs=[];
 let nsfwUnlocked=false, nsfwVisible=false;
-let galleryTypeFilter='all', galleryRatingFilter='all', refsRatingFilter='all', galleryArtistFilter='all';
+let galleryTypeFilter='all', galleryRatingFilter='all', refsRatingFilter='all', galleryArtistFilter='all', galleryCharacterFilter='all';
 let lightboxIndex=0, visibleItems=[];
 
 // ratingVisible: can this rating be shown given current unlock state?
@@ -106,10 +106,12 @@ function renderGallery() {
   const grid = document.getElementById('gallery-grid');
   grid.innerHTML = '';
   visibleItems = allGallery.filter(item => {
-    const typeOk   = galleryTypeFilter === 'all' || item.type === galleryTypeFilter;
-    const ratingOk = ratingMatchesFilter(item.rating, galleryRatingFilter);
-    const artistOk = galleryArtistFilter === 'all' || item.artist === galleryArtistFilter;
-    return typeOk && ratingOk && artistOk && ratingVisible(item.rating);
+    const typeOk      = galleryTypeFilter === 'all' || item.type === galleryTypeFilter;
+    const ratingOk    = ratingMatchesFilter(item.rating, galleryRatingFilter);
+    const artistOk    = galleryArtistFilter === 'all' || item.artist === galleryArtistFilter;
+    const chars       = Array.isArray(item.characters) ? item.characters : [];
+    const characterOk = galleryCharacterFilter === 'all' || chars.includes(galleryCharacterFilter);
+    return typeOk && ratingOk && artistOk && characterOk && ratingVisible(item.rating);
   });
 
   document.getElementById('gallery-empty').classList.toggle('visible', visibleItems.length === 0);
@@ -229,6 +231,13 @@ function filterGalleryRating(rating, btn) {
   if ((rating === 'NSFW' || rating === 'Suggestive') && !(nsfwUnlocked && nsfwVisible)) return;
   galleryRatingFilter = rating;
   document.querySelectorAll('#page-gallery .rating-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGallery();
+}
+
+function filterGalleryCharacter(character, btn) {
+  galleryCharacterFilter = character;
+  document.querySelectorAll('#page-gallery .char-filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderGallery();
 }

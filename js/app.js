@@ -104,6 +104,8 @@ async function init() {
 
 function renderGallery() {
   const grid = document.getElementById('gallery-grid');
+  // Preserve scroll position so filter changes don't jump to top
+  const scrollY = window.scrollY;
   grid.innerHTML = '';
   visibleItems = allGallery.filter(item => {
     const typeOk      = galleryTypeFilter === 'all' || item.type === galleryTypeFilter;
@@ -126,7 +128,7 @@ function renderGallery() {
     const isVideo = item.src && item.src.toLowerCase().endsWith('.mp4');
     const mediaEl = isVideo
       ? `<video src="${item.src}" autoplay loop muted playsinline preload="metadata" style="width:100%;display:block;"></video>`
-      : `<img src="${item.src}" alt="${item.title}" loading="lazy">`;
+      : `<img src="${item.src}" alt="${item.title}" loading="lazy" width="400" height="400" style="width:100%;height:auto;display:block;">`;
     el.innerHTML = `
       <div class="${restricted ? 'nsfw-blur' : ''}">
         ${mediaEl}
@@ -143,6 +145,8 @@ function renderGallery() {
     el.addEventListener('click', () => { if (restricted) return; openLightbox(idx); });
     grid.appendChild(el);
   });
+  // Restore scroll after DOM update
+  requestAnimationFrame(() => window.scrollTo({ top: scrollY, behavior: 'instant' }));
 }
 
 function renderRefs() {

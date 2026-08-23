@@ -143,6 +143,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(26,28,34,.96);backdrop-fil
 .form-success h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--accent);margin-bottom:8px;}
 .form-success p{color:var(--muted);font-size:0.9rem;}
 .state-msg{text-align:center;padding:80px 32px;color:var(--muted);}
+.anim-pip{position:absolute;bottom:8px;left:8px;background:rgba(74,200,212,.9);color:#1a1c22;font-size:.65rem;font-weight:700;padding:3px 9px;border-radius:50px;letter-spacing:.04em;pointer-events:none;}
+.gallery-item video{width:100%;display:block;}
 .state-msg h3{font-size:1.1rem;margin-bottom:8px;color:var(--text);}
 #lightbox{position:fixed;inset:0;z-index:1000;background:rgba(14,16,20,.97);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px;}
 #lightbox.open{display:flex;}
@@ -366,7 +368,15 @@ function renderGallery(){
   visible.forEach((item,idx)=>{
     const isNSFW=item.rating==='NSFW',blurred=isNSFW&&!nsfwUnlocked;
     const el=document.createElement('div');el.className='gallery-item';el.style.animationDelay=Math.min(idx*0.03,0.6)+'s';
-    el.innerHTML='<div class="'+(blurred?'nsfw-blur':'')+'"><img src="'+item.src+'" alt="'+item.title+'" loading="lazy"></div>'+(blurred?'<div class="nsfw-ov" onclick="showGate()"><span class="nsfw-badge">NSFW</span><p>Unlock to view</p></div>':'')+'<div class="item-info"><span class="item-artist">by '+item.artist+'</span><span class="item-type">'+item.type+'</span></div>';
+    const isVid=item.src&&item.src.toLowerCase().endsWith('.mp4');
+    const mediaTpl=isVid
+      ?'<video src="'+item.src+'" autoplay loop muted playsinline preload="metadata" style="width:100%;display:block;"></video><div class="anim-pip">▶ Animation</div>'
+      :'<img src="'+item.src+'" alt="'+item.title+'" loading="lazy" width="400" height="400" style="width:100%;height:auto;display:block;">';
+    el.innerHTML='<div style="position:relative" class="'+(blurred?'nsfw-blur':'')+'">'
+      +mediaTpl
+      +'</div>'
+      +(blurred?'<div class="nsfw-ov" onclick="showGate()"><span class="nsfw-badge">NSFW</span><p>Unlock to view</p></div>':'')
+      +'<div class="item-info"><span class="item-artist">by '+item.artist+'</span><span class="item-type">'+item.type+'</span></div>';
     if(!blurred)el.addEventListener('click',()=>openLightbox(idx,'gallery'));
     grid.appendChild(el);
   });
@@ -472,16 +482,28 @@ function resetContact(){
   document.getElementById('form-success').style.display='none';
 }
 
-function openLightbox(idx,mode){lbIdx=idx;lbMode=mode;showLb();document.querySelector('.lb-nav').style.display=(mode==='refs')?'none':'flex';document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
+function openLightbox(idx,mode){lbIdx=idx;lbMode=mode;document.querySelector('.lb-nav').style.display=(mode==='refs')?'none':'flex';document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';showLb();}
 function showLb(){
   const arr=lbMode==='refs'?visibleRefs:lbMode==='sketches'?visibleSketches:visible;
   const item=arr[lbIdx];if(!item)return;
-  document.getElementById('lb-img').src=item.src;document.getElementById('lb-title').textContent=item.title;
+  const wrap=document.querySelector('.lb-img-wrap');
+  const isVid=item.src&&item.src.toLowerCase().endsWith('.mp4');
+  if(isVid){
+    wrap.innerHTML='<video src="'+item.src+'" autoplay loop muted playsinline controls style="max-width:100%;max-height:72vh;display:block;border-radius:8px;"></video>';
+  } else {
+    wrap.innerHTML='<img id="lb-img" src="'+item.src+'" alt="'+item.title+'" style="max-width:100%;max-height:72vh;object-fit:contain;display:block;">';
+  }
+  document.getElementById('lb-title').textContent=item.title;
   const badge=item.rating==='NSFW'?'<span class="lb-rbadge lb-nsfw">NSFW</span>':'<span class="lb-rbadge lb-sfw">SFW</span>';
   let sub='by '+item.artist;if(lbMode==='gallery')sub+=' · '+item.type;if(lbMode==='refs'&&item.version)sub+=' · '+item.version;
   document.getElementById('lb-sub').innerHTML=sub+badge;
 }
-function closeLb(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
+function closeLb(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+  const vid=document.querySelector('.lb-img-wrap video');
+  if(vid){vid.pause();vid.src='';}
+}
 document.getElementById('lb-close').onclick=closeLb;
 document.getElementById('lb-prev').onclick=()=>{const arr=lbMode==='sketches'?visibleSketches:visible;lbIdx=(lbIdx-1+arr.length)%arr.length;showLb();};
 document.getElementById('lb-next').onclick=()=>{const arr=lbMode==='sketches'?visibleSketches:visible;lbIdx=(lbIdx+1)%arr.length;showLb();};

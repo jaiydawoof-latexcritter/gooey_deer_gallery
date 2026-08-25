@@ -376,9 +376,11 @@ function renderGallery(){
     const isNSFW=item.rating==='NSFW',blurred=isNSFW&&!nsfwUnlocked;
     const el=document.createElement('div');el.className='gallery-item';el.style.animationDelay=Math.min(idx*0.03,0.6)+'s';
     const isVid=item.src&&item.src.toLowerCase().endsWith('.mp4');
+    const w=item.width||800;
+    const h=item.height||800;
     const mediaTpl=isVid
       ?'<video src="'+item.src+'" autoplay loop muted playsinline preload="metadata" style="width:100%;display:block;"></video><div class="anim-pip">▶ Animation</div>'
-      :'<img src="'+item.src+'" alt="'+item.title+'" loading="lazy" width="400" height="400" style="width:100%;height:auto;display:block;">';
+      :'<img src="'+item.src+'" alt="'+item.title+'" loading="lazy" width="'+w+'" height="'+h+'" style="width:100%;height:auto;display:block;">';
     el.innerHTML='<div style="position:relative" class="'+(blurred?'nsfw-blur':'')+'">'
       +mediaTpl
       +'</div>'

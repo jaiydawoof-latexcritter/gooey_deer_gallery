@@ -4,6 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  // EmailJS config — replace YOUR_PUBLIC_KEY with your EmailJS public key
+  (function(){
+    emailjs.init({publicKey: "YOUR_PUBLIC_KEY"});
+  })();
+</script>
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -468,12 +475,34 @@ function dismissGate(){
 function syncToggle(){document.getElementById('nsfw-tog').classList.toggle('on',nsfwUnlocked);document.getElementById('nsfw-lbl').classList.toggle('on',nsfwUnlocked);}
 
 function submitContact(){
-  const name=document.getElementById('cf-name').value.trim();
-  const msg=document.getElementById('cf-message').value.trim();
-  if(!name){alert('Please enter your name.');return;}
-  if(!msg){alert('Please enter a message.');return;}
-  document.getElementById('contact-form').style.display='none';
-  document.getElementById('form-success').style.display='block';
+  const name    = document.getElementById('cf-name').value.trim();
+  const email   = document.getElementById('cf-email').value.trim();
+  const subject = document.getElementById('cf-subject').value;
+  const msg     = document.getElementById('cf-message').value.trim();
+
+  if(!name){ alert('Please enter your name.'); return; }
+  if(!msg){  alert('Please enter a message.'); return; }
+
+  const btn = document.querySelector('.btn-submit');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  // EmailJS — replace YOUR_SERVICE_ID and YOUR_TEMPLATE_ID
+  emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+    from_name:    name,
+    from_email:   email || 'No email provided',
+    subject:      subject,
+    message:      msg,
+    to_email:     'gooeydeer@jaiydawoof.com'
+  }).then(function(){
+    document.getElementById('contact-form').style.display='none';
+    document.getElementById('form-success').style.display='block';
+  }, function(error){
+    btn.disabled = false;
+    btn.textContent = 'Send Message';
+    alert('Sorry, something went wrong. Please try again. Error: ' + JSON.stringify(error));
+    console.error('EmailJS error:', error);
+  });
 }
 function resetContact(){
   ['cf-name','cf-email','cf-message'].forEach(id=>document.getElementById(id).value='');

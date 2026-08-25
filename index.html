@@ -6,9 +6,9 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // EmailJS config — replace YOUR_PUBLIC_KEY with your EmailJS public key
+  // EmailJS config — replace om2G66vwvcj8NFGrs with your EmailJS public key
   (function(){
-    emailjs.init({publicKey: "YOUR_PUBLIC_KEY"});
+    emailjs.init({publicKey: "om2G66vwvcj8NFGrs"});
   })();
 </script>
 <meta http-equiv="Pragma" content="no-cache">
@@ -487,8 +487,8 @@ function submitContact(){
   btn.disabled = true;
   btn.textContent = 'Sending...';
 
-  // EmailJS — replace YOUR_SERVICE_ID and YOUR_TEMPLATE_ID
-  emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+  // EmailJS — replace service_5jr4z7l and template_2ax4jpf
+  emailjs.send('service_5jr4z7l', 'template_2ax4jpf', {
     from_name:    name,
     from_email:   email || 'No email provided',
     subject:      subject,
